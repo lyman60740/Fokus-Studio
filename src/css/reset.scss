@@ -1,0 +1,48 @@
+/* Réinitialisation des marges et des rembourrages */
+body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, div, button, a {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+  }
+  
+  /* Réinitialisation des styles de liste */
+  ol, ul {
+    list-style: none;
+  }
+  
+  /* Réinitialisation des styles de lien */
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  /* Réinitialisation des styles de bouton */
+  button {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }
+  
+  /* Réinitialisation des styles de titre */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+  }
+  
+  /* Réinitialisation des styles de texte */
+  p {
+    line-height: 1;
+  }
+  
+  /* Réinitialisation des styles de tableau */
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  

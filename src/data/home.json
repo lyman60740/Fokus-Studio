@@ -1,0 +1,14 @@
+{
+    "title": "Donnez vie à vos idées",
+    "videoUrl": "../assets/videos/theWave.mp4",
+    "clients" : {
+        "title" : "Ils nous ont fait confiance",
+        "list" :[ 
+            "Microsoft",
+            "Axa",
+            "Warner Bros",
+            "Nestlé Waters",
+            "Demooz"
+        ]
+    }
+}
