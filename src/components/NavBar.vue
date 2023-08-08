@@ -62,6 +62,7 @@ export default {
   box-sizing: border-box;
   background: $primary-color;
   z-index: 99;
+  top: 0;
   &__links {
     display: flex;
     align-items: center;

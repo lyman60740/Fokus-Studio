@@ -22,10 +22,10 @@
   <script>
 import { gsap } from 'gsap';
 import corporateImage from '@/assets/images/corporate_1.png';
-import corporateImage2 from '@/assets/images/corporate_2.png';
-import culinairesImage2 from '@/assets/images/culinaires_2.png';
-import immobilieresImage2 from '@/assets/images/immobilieres_2.png';
-import sportivesImage from '@/assets/images/sportives_1.png';
+import corporateImage2 from '@/assets/images/placeholder-corporate.png';
+import culinairesImage2 from '@/assets/images/placeholder-culinaires.png';
+import immobilieresImage2 from '@/assets/images/placeholder-immobilieres.png';
+import sportivesImage from '@/assets/images/placeholder-sportives.png';
 
 import jsonData from '../../data/services.json';
   export default {
@@ -33,7 +33,8 @@ import jsonData from '../../data/services.json';
     data() {
     return {
       jsonData,
-      corporateImage
+      corporateImage,
+      duration: 0.5,
     };
     },
     computed: {
@@ -63,14 +64,14 @@ import jsonData from '../../data/services.json';
     },
     hoverPreview(e) {
     gsap.to(e.target, {
-      duration: 0.5,
+      duration: this.duration,
       width: "calc(" + this.itemWidth + " + 10%)",
       ease: "power2.out",
     });
   },
   leavePreview(e) {
     gsap.to(e.target, {
-      duration: 0.5,
+      duration: this.duration,
       width: this.itemWidth,
       ease: "power2.in",
     });

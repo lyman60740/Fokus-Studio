@@ -2,9 +2,10 @@
   <div class="container">
     <section class="heroBanner">
       <div class="video-background">
-    <video playsinline  muted loop>
+    <!-- <video playsinline  muted loop>
       <source src="../assets/videos/theWave.mp4" type="video/mp4">
-    </video>
+    </video> -->
+    <img src="../assets/images/placeholder-home.png" alt="">
     <h1>{{ jsonData.title }}</h1>
   </div> 
   </section>
@@ -42,6 +43,7 @@ export default {
   // }
   height: 100vh;
   position: relative;
+  margin-top: 91px;
   & h1 {
     font-size: $font-size-titleSection;
     color: $primary-color;
@@ -60,6 +62,11 @@ export default {
       left: 0;
       overflow: hidden;
       z-index: -1;
+      & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
 
     .video-background video {
