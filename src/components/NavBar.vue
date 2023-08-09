@@ -58,7 +58,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 10px 5%;
+  padding: 10px 10%;
   box-sizing: border-box;
   background: $primary-color;
   z-index: 99;

@@ -2,7 +2,19 @@
 @import './variables.scss';
 body {
     font-family:'Montserrat', sans-serif !important;
+    height: 500vh;
 }
 section {
     margin-bottom: 170px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+h2 {
+    font-size: $font-size-titleSection;
+    color: $secondary-color;
+    font-weight: 700;
+    margin-bottom: 60px;
 }

@@ -93,21 +93,11 @@ import jsonData from '../../data/services.json';
   
   <style lang="scss" scoped>
   @import '../../css/variables.scss';
-  .servicesHome {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    & h2 {
-        font-size: $font-size-titleSection;
-        color: $secondary-color;
-        font-weight: 700;
-        margin-bottom: 60px;
-    }
-  }
+  @import '../../css/global.scss';
+  
   .servicesBloc {
     width: 70%;
+    height: 70vh;
     box-sizing: border-box;
     padding: 0 5%;
     display: flex;

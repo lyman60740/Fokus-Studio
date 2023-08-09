@@ -1,6 +1,11 @@
 <template>
     <section class="clientsHome">
         <h2>{{ jsonData.clients.title }}</h2>
+        <div class="clientsHome__logoBox">
+          <div class="clientsHome__logoBox__item" v-for="(item, index) in jsonData.clients.list" :key="index" :class="item">
+                <img :src="getImage(item)" :alt="item" />
+            </div>
+        </div>
     </section>
   </template>
   
@@ -23,15 +28,14 @@ import jsonData from '../../data/home.json';
     },
     methods: {
         getImage(item) {
-      // Vous pouvez utiliser un switch ou des conditions pour retourner l'image correcte
-      switch (item.title) {
+      switch (item) {
         case 'Microsoft':
           return microsoftLogo;
         case 'Axa':
           return axaLogo;
           case 'Demooz':
           return demoozLogo;
-        case 'Nestle Waters':
+        case 'Nestlé Waters':
           return nestleLogo;
           case 'Warner Bros':
           return warner_brosLogo;
@@ -44,3 +48,37 @@ import jsonData from '../../data/home.json';
     
 }
   </script>
+
+<style lang="scss" scoped>
+  @import '../../css/variables.scss';
+  @import '../../css/global.scss';
+
+  .clientsHome {
+    width: 100%;
+    &__logoBox {
+      width: 100%;
+      background: rgba(46, 46, 46, 0.08);
+      display: flex;
+      justify-content: space-between;
+      padding: 50px 10%;
+      box-sizing: border-box;
+      &__item {
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      & img {
+        height: 90px;
+      }
+      & .Microsoft img {
+        height: 50px !important;
+      }
+      & .Demooz img {
+        height: 50px !important;
+      }
+    }
+  }
+  
+
+</style>
