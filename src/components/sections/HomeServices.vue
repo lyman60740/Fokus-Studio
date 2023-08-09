@@ -35,6 +35,7 @@ import jsonData from '../../data/services.json';
       jsonData,
       corporateImage,
       duration: 0.5,
+      hoverDelay: null,
     };
     },
     computed: {
@@ -62,14 +63,22 @@ import jsonData from '../../data/services.json';
           return null; // ou une image par défaut
       }
     },
-    hoverPreview(e) {
-    gsap.to(e.target, {
-      duration: this.duration,
-      width: "calc(" + this.itemWidth + " + 10%)",
-      ease: "power2.out",
-    });
+    
+ hoverPreview(e) {
+  // Annule le délai précédent si l'utilisateur sort du survol avant 0.5 seconde
+    clearTimeout(this.hoverDelay);
+
+    // Définit un délai de 0.5 seconde avant de déclencher l'animation
+    this.hoverDelay = setTimeout(() => {
+      gsap.to(e.target, {
+        duration: this.duration,
+        width: "calc(" + this.itemWidth + " + 10%)",
+        ease: "power2.out",
+      });
+    }, 300);
   },
   leavePreview(e) {
+    clearTimeout(this.hoverDelay);
     gsap.to(e.target, {
       duration: this.duration,
       width: this.itemWidth,
