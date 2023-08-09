@@ -14,11 +14,12 @@
   
   <script>
   //TODO: ajouter les données dynamique du json de la section aboutet (boucler pour pouvoir ajouter des paragaphes)
+  import jsonData from '../../data/home.json';
   export default {
     name: 'HomeAbout',
     data() {
     return {
-      
+      jsonData
     };
     },
 //     mounted() {
