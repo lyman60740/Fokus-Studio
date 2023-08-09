@@ -16,9 +16,8 @@ import demoozLogo from '@/assets/logo/demooz.svg';
 import axaLogo from '@/assets/logo/axa.svg';
 import nestleLogo from '@/assets/logo/nestle.svg';
 import warner_brosLogo from '@/assets/logo/warner_bros.svg';
-
-
 import jsonData from '../../data/home.json';
+
   export default {
     name: 'HomeClients',
     data() {

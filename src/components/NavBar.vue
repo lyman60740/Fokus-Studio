@@ -63,6 +63,7 @@ export default {
   background: $primary-color;
   z-index: 99;
   top: 0;
+  color: $secondary-color;
   &__links {
     display: flex;
     align-items: center;

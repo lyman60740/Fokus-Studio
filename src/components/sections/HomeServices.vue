@@ -103,6 +103,7 @@ import jsonData from '../../data/services.json';
     display: flex;
     position: relative;
     justify-content: space-between;
+    
     &__item {
         height: 70vh;
         background-size: cover;
@@ -129,10 +130,11 @@ import jsonData from '../../data/services.json';
             height: 30%;
             display: flex;
             flex-direction: column;
-            width: 100%;
-            background: rgba(4, 7, 37, 0.20);
+            width: 100% !important;
+            background: rgba(0, 0, 0, 0.50);
             padding: 27px 14px;
             box-sizing: border-box;
+            pointer-events: none;
             & text {
                 color: $primary-color;
                 font-size: $font-size-explainText;

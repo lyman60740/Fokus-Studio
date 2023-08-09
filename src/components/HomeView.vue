@@ -11,6 +11,7 @@
   </section>
   <HomeServices />
   <HomeClients />
+  <HomeAbout />
   </div>
 </template>
 
@@ -18,12 +19,14 @@
 import jsonData from '../data/home.json';
 import HomeServices from './sections/HomeServices.vue';
 import HomeClients from './sections/HomeClients.vue';
+import HomeAbout from './sections/HomeAbout.vue';
 
 export default {
   name: 'HomeView',
   components: {
     HomeServices,
-    HomeClients
+    HomeClients,
+    HomeAbout
   },
   data() {
     return {
@@ -46,7 +49,7 @@ export default {
   margin-top: 91px;
   & h1 {
     font-size: $font-size-titleSection;
-    color: $primary-color;
+    color: $secondary-color;
     position: absolute;
     font-weight: 700;
   }
