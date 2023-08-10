@@ -20,7 +20,7 @@ export default createStore({
               toggleActions: 'play none none reverse',
             },
             duration: 1,
-            y: 0,
+            y: -2,
             opacity: 1,
             ease: "power3.out",
           });
