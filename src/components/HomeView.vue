@@ -49,7 +49,7 @@ export default {
   margin-top: 91px;
   & h1 {
     font-size: $font-size-titleSection;
-    color: $secondary-color;
+    color: $primary-color;
     position: absolute;
     font-weight: 700;
   }

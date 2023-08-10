@@ -19,3 +19,15 @@ h2 {
     font-weight: 700;
     margin-bottom: 60px;
 }
+h3 {
+    font-size: $font-size-subTitle;
+    color: $secondary-color;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+p {
+    font-size: $font-size-explainText;
+    color: $light-black-font;
+    font-weight: normal;
+    margin-bottom: 20px;
+}

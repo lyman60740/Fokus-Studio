@@ -16,12 +16,11 @@ export default createStore({
           gsap.to(element, {
             scrollTrigger: {
               trigger: element,
-              start: 'top center', // Vous pouvez ajuster ce déclencheur selon vos besoins
+              start: 'top 70%', // Vous pouvez ajuster ce déclencheur selon vos besoins
               toggleActions: 'play none none reverse',
             },
             duration: 1,
-            x: 100,
-            y: 100,
+            y: 0,
             opacity: 1,
             ease: "power3.out",
           });
