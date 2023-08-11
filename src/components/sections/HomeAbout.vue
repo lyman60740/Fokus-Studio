@@ -165,14 +165,13 @@ tl.to(rectangle, {
 }
   </script>
 
-<style lang="scss" >
+<style lang="scss" scoped >
   @import '../../css/variables.scss';
   @import '../../css/global.scss';
 
   .aboutHome {
     padding: 0 10%;
     box-sizing: border-box;
-    
     overflow-x: hidden;
     &__boxContent {
       width: 100%;
@@ -293,5 +292,10 @@ tl.to(rectangle, {
             transform: translate(0, 100%);
           }
         }
+      }
+
+      h4 {
+        font-size: 24px;
+        font-weight: 700;
       }
 </style>

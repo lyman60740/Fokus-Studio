@@ -73,6 +73,9 @@ export default {
     & a:not(:last-child) {
       margin-right: 5vw;
     }
+    & a:last-child {
+      margin-left: 5vw;
+    }
   }
 }
 .navBar__reseaux {

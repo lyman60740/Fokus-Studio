@@ -12,6 +12,8 @@
   <HomeServices />
   <HomeClients />
   <HomeAbout />
+  <ContactButton />
+  <FooterBloc />
   </div>
 </template>
 
@@ -20,13 +22,17 @@ import jsonData from '../data/home.json';
 import HomeServices from './sections/HomeServices.vue';
 import HomeClients from './sections/HomeClients.vue';
 import HomeAbout from './sections/HomeAbout.vue';
+import ContactButton from './ContactButton.vue';
+import FooterBloc from './FooterBloc.vue';
 
 export default {
   name: 'HomeView',
   components: {
     HomeServices,
     HomeClients,
-    HomeAbout
+    HomeAbout,
+    ContactButton,
+    FooterBloc
   },
   data() {
     return {

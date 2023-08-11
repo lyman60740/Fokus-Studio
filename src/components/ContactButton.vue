@@ -50,7 +50,6 @@
     .contactButton-box {
         display: flex;
         justify-content: space-between;
-        margin-right: 5vw;
         height: 40px;
         width: 215px;
     }

@@ -2,8 +2,12 @@
 @import './variables.scss';
 body {
     font-family:'Montserrat', sans-serif !important;
-    height: 500vh;
     background: $primary-color;
+}
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 section {
     margin-bottom: 170px;
@@ -30,4 +34,7 @@ p {
     color: $light-black-font;
     font-weight: normal;
     margin-bottom: 20px;
+}
+a {
+    cursor: pointer;
 }
