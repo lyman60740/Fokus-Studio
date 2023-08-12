@@ -1,9 +1,8 @@
 <template>
-  
   <div>
-    
     <NavBar />
-    <HomeView />
+    <router-view></router-view> <!-- Ceci rendra le composant correspondant à la route actuelle -->
+    <FooterBloc />
   </div>
 </template>
 
@@ -12,16 +11,16 @@ import NavBar from './components/NavBar.vue'
 import './css/global.scss'
 import './css/variables.scss'
 import './css/reset.scss'
-import HomeView from './components/HomeView.vue'
+import FooterBloc from './components/FooterBloc.vue'
 import jsonData from './data/meta.json';
 
 export default {
   name: 'App',
   components: {
     NavBar,
-    HomeView
-},
-mounted() {
+    FooterBloc
+  },
+  mounted() {
     document.title = jsonData.title;
     let metaDescription = document.querySelector('meta[name="description"]');
     if (!metaDescription) {

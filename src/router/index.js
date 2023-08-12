@@ -5,7 +5,7 @@ import ContactView from '@/components/ContactView';
 
 const routes = [
   { path: '/', component: HomeComponent },
-  { path: '/services', component: ServiceView },
+  { path: '/services/:serviceId', component: ServiceView },
   { path: '/contact', component: ContactView },
 ];
 

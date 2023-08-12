@@ -109,6 +109,12 @@ import jsonData from '../data/footer.json';
             align-items: center;
             width: 135px;
             justify-content: space-between;
+            &:hover img {
+              transform: rotate(45deg);
+            }
+            & img {
+              transition: transform 0.3s ease-in-out;
+            }
           }
         }
       }

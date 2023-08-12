@@ -2,9 +2,11 @@
     <section class="servicesHome">
      <h2>{{ jsonData.title }}</h2>
      <div class="servicesBloc">
-        <div class="servicesBloc__item" 
+        <router-link
+        class="servicesBloc__item" 
         v-for="(item, index) in jsonData.services" 
         :key="item.id" 
+        :to="`/services/${item.id}`"
         :style="{ backgroundImage: `url(${getImage(item)})`, width: itemWidth, left: leftPosition(index) }" 
         @mouseover="hoverPreview($event)"
         @mouseleave="leavePreview($event)"
@@ -13,9 +15,9 @@
                 <text>Vidéos</text>
                 <h3>{{ item.title }}</h3>
             </div>
-            
+          </router-link>
         </div>
-     </div>
+     
     </section>
   </template>
   

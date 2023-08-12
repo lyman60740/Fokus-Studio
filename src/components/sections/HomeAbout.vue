@@ -152,7 +152,7 @@ tl.to(rectangle, {
     duration: 0.3, 
     ease: "power3.out",
     borderColor: "#1B1B1B",
-  borderWidth: "1px"
+  borderWidth: "2px"
   },"<"); // Utilisez le même décalage négatif que dans la première phase
 
 //TODO inverser l'animation post prod et optimiser les animations avec des .reverse etc
@@ -272,7 +272,7 @@ tl.to(rectangle, {
           }
         &__rectangle {
           height: 37.5px;
-          border: 1px solid $secondary-color;
+          border: 2px solid $secondary-color;
           border-radius: 5px;
           
           &:nth-child(1) {

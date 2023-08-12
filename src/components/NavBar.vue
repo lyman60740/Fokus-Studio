@@ -1,11 +1,15 @@
 <template>
   <div class="navBar">
+    <router-link to="/">
     <div class="navBar__logo">
       <img src="../assets/logo/logo_complet_noir.svg" alt="logo" class="logo_complet_noir" />
     </div>
+    </router-link>
     <div class="navBar__links">
       <a href="#">Nos services</a>
-      <ContactButton />
+      <router-link to="/contact">
+        <ContactButton />
+      </router-link>
       <a href="#">L'agence</a>
     </div>
     <div class="navBar__reseaux">
