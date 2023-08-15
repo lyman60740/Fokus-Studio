@@ -22,13 +22,15 @@
   </template>
   
   <script>
-import { gsap } from 'gsap';
+import { gsap, CustomEase } from 'gsap/all';
+
 import corporateImage from '@/assets/images/corporate_1.png';
 import corporateImage2 from '@/assets/images/placeholder-corporate.png';
 import culinairesImage2 from '@/assets/images/placeholder-culinaires.png';
 import immobilieresImage2 from '@/assets/images/placeholder-immobilieres.png';
 import sportivesImage from '@/assets/images/placeholder-sportives.png';
-
+gsap.registerPlugin(CustomEase);
+const myCustomEase = CustomEase.create("custom", "M0,0 C0.532,0 0.392,0.51 1,0.988");
 import jsonData from '../../data/services.json';
   export default {
     name: 'HomeServices',
@@ -67,26 +69,29 @@ import jsonData from '../../data/services.json';
     },
     
  hoverPreview(e) {
-  // Annule le délai précédent si l'utilisateur sort du survol avant 0.5 seconde
-    clearTimeout(this.hoverDelay);
+      // Annule le délai précédent si l'utilisateur sort du survol avant 0.5 seconde
+      clearTimeout(this.hoverDelay);
 
-    // Définit un délai de 0.5 seconde avant de déclencher l'animation
-    this.hoverDelay = setTimeout(() => {
+      // Définit un délai de 0.5 seconde avant de déclencher l'animation
+      this.hoverDelay = setTimeout(() => {
+        
+
+        gsap.to(e.target, {
+          duration: this.duration,
+          width: "calc(" + this.itemWidth + " + 10%)",
+          ease: myCustomEase,
+        });
+      }, 300);
+    },
+    leavePreview(e) {
+      clearTimeout(this.hoverDelay);
       gsap.to(e.target, {
         duration: this.duration,
-        width: "calc(" + this.itemWidth + " + 10%)",
-        ease: "power2.out",
+        width: this.itemWidth,
+        ease: myCustomEase,
       });
-    }, 300);
-  },
-  leavePreview(e) {
-    clearTimeout(this.hoverDelay);
-    gsap.to(e.target, {
-      duration: this.duration,
-      width: this.itemWidth,
-      ease: "power2.in",
-    });
-  },
+    },
+  
   }
 }
   </script>
