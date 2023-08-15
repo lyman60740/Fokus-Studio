@@ -1,5 +1,5 @@
 <template>
-  <div class="navBar">
+  <div class="navBar" ref="navbar">
     <router-link to="/">
     <div class="navBar__logo">
       <img src="../assets/logo/logo_complet_noir.svg" alt="logo" class="logo_complet_noir" />
@@ -38,20 +38,51 @@ export default {
   components: {
     ContactButton
   },
+  data() {
+    return {
+      lastScrollTop: 0,
+    };
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
   methods: {
+    
     hoverSocialLink(event) {
       gsap.to(event.currentTarget, {
         y: -5,
-        duration: 0.3,
+        duration: 0.7,
         ease: 'power1.out'
       });
     },
     leaveSocialLink(event) {
       gsap.to(event.currentTarget, {
         y: 0,
-        duration: 0.3,
+        duration: 0.7,
         ease: 'power1.out'
       });
+    },
+    handleScroll() {
+      const st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > this.lastScrollTop) {
+        // Si on scroll vers le bas
+        gsap.to(this.$refs.navbar, {
+          y: '-100%',
+          duration: 0.7,
+          ease: 'power1.out'
+        });
+      } else {
+        // Si on scroll vers le haut
+        gsap.to(this.$refs.navbar, {
+          y: '0%',
+          duration: 0.7,
+          ease: 'power1.out'
+        });
+      }
+      this.lastScrollTop = st <= 0 ? 0 : st; // Pour les navigateurs mobiles
     }
   }
 }
