@@ -1,6 +1,6 @@
 
 <template>
-    <section class="aboutHome">
+    <section id="agence" class="aboutHome">
         <img src="../../assets/logo/logo_titrage_noir.svg" alt="" class="logo-letter">
         <div class="aboutHome__boxContent">
           <div class="aboutHome__boxContent__bloc" 

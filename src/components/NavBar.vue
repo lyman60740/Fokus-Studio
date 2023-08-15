@@ -6,11 +6,16 @@
     </div>
     </router-link>
     <div class="navBar__links">
-      <a href="#">Nos services</a>
+      
+      <router-link :to="{ name: 'HomeView', hash: '#services' }">
+        Nos services
+      </router-link>
       <router-link to="/contact">
         <ContactButton />
       </router-link>
-      <a href="#">L'agence</a>
+      <router-link :to="{ name: 'HomeView', hash: '#agence' }">
+        L'Agence
+      </router-link>
     </div>
     <div class="navBar__reseaux">
       <a href="#" ref="link1" @mouseover="hoverSocialLink" @mouseleave="leaveSocialLink"><img src="../assets/icons/facebook.svg" alt="facebook" /></a>

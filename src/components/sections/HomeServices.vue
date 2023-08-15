@@ -1,5 +1,5 @@
 <template>
-    <section class="servicesHome">
+    <section id="services" class="servicesHome">
      <h2>{{ jsonData.title }}</h2>
      <div class="servicesBloc">
         <router-link
