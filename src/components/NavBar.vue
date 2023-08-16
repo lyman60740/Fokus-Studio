@@ -72,14 +72,16 @@ export default {
         gsap.to(this.$refs.navbar, {
           y: '-100%',
           duration: 0.7,
-          ease: 'power1.out'
+          ease: 'power1.out',
+          opacity: 0
         });
       } else {
         // Si on scroll vers le haut
         gsap.to(this.$refs.navbar, {
           y: '0%',
           duration: 0.7,
-          ease: 'power1.out'
+          ease: 'power1.out',
+          opacity: 1
         });
       }
       this.lastScrollTop = st <= 0 ? 0 : st; // Pour les navigateurs mobiles
