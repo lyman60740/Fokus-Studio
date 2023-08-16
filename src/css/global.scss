@@ -14,6 +14,7 @@ section {
     display: flex;
     flex-direction: column;
     width: 100%;
+    max-width: 2000px;
     align-items: center;
     justify-content: center;
 }
@@ -38,6 +39,28 @@ p {
 a {
     cursor: pointer;
 }
+input:not([type="file"]), textarea {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: none;
+    box-shadow: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    appearance: none; /* Pour supprimer le style par défaut dans certains navigateurs */
+    -webkit-appearance: none; /* Pour Chrome et Safari */
+    -moz-appearance: none; /* Pour Firefox */
+}
+
+/* Pour supprimer la bordure lors de la mise au point (focus) dans certains navigateurs */
+input[type="text"]:focus {
+    border-color: transparent;
+    outline: none;
+    box-shadow: none;
+}
+
 img:not(.logo img) {
     animation: appear 2s 0.2s forwards ease-out;
     opacity: 0;

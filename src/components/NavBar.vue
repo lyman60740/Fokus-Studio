@@ -100,6 +100,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  max-width: 2000px;
   padding: 10px 10%;
   box-sizing: border-box;
   background: $primary-color;
