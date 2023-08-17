@@ -1,24 +1,29 @@
 <template>
   <div>
-    <transition v-if="isLoading">
-      <div ref="loaderContainer">
-        <LoaderView />
-      </div>
-    </transition>
-    <transition v-else>
-      <div>
-        <NavBar />
-        <transition 
-          name="fade" 
-          mode="out-in"
-          @enter="enterAnimation"
-          @leave="leaveAnimation"
-        >
-          <router-view></router-view>
-        </transition>
-        <FooterBloc />
-      </div>
-    </transition>
+    <transition 
+  name="fade" 
+  mode="out-in"
+  @enter="enterAnimation"
+  @leave="leaveAnimation"
+>
+  <div v-if="isLoading" ref="loaderContainer">
+    <LoaderView />
+  </div>
+  <div v-else>
+    <NavBar />
+    <router-view v-slot="{ Component }">
+      <transition 
+        name="fade" 
+        mode="out-in"
+        @enter="enterAnimation"
+        @leave="leaveAnimation"
+      >
+        <component :is="Component" />
+      </transition>
+    </router-view>
+    <FooterBloc />
+  </div>
+</transition>
   </div>
 </template>
 
@@ -33,15 +38,18 @@ import jsonData from './data/meta.json';
 import { gsap } from 'gsap';
 import LoaderView from './components/LoaderView.vue';
 
-import imgBanner from './assets/images/placeholder-home.png';
-import corporateImage1 from '@/assets/images/corporate_1.png';
-import corporateImage2 from '@/assets/images/corporate_2.png';
-import culinairesImage1 from '@/assets/images/culinaires_1.png';
-import culinairesImage2 from '@/assets/images/culinaires_2.png';
-import immobilieresImage1 from '@/assets/images/immobilieres_1.png';
-import immobilieresImage2 from '@/assets/images/immobilieres_2.png';
-import sportivesImage1 from '@/assets/images/sportives_1.png';
-import sportivesImage2 from '@/assets/images/sportives_2.png';
+import allAssets from '@/assets/preloadAssets';
+
+// import imgBanner from '@/assets/images/placeholder-home.webp';
+// import corporateImage1 from '@/assets/images/corporate_1.png';
+// import corporateImage2 from '@/assets/images/corporate_2.png';
+// import culinairesImage1 from '@/assets/images/culinaires_1.png';
+// import culinairesImage2 from '@/assets/images/culinaires_2.png';
+// import immobilieresImage1 from '@/assets/images/immobilieres_1.png';
+// import immobilieresImage2 from '@/assets/images/immobilieres_2.png';
+// import sportivesImage1 from '@/assets/images/sportives_1.png';
+// import sportivesImage2 from '@/assets/images/sportives_2.png';
+// import loicProfil from '@/assets/images/loic_profil.png';
 
 export default {
   name: 'App',
@@ -58,14 +66,8 @@ export default {
   mounted() {
     this.loadResources().then(() => {
       setTimeout(() => {
-        gsap.to(this.$refs.loaderContainer, {
-      opacity: 0,
-      duration: 1,
-      onComplete: () => {
         this.isLoading = false;
-      }
-    });
-      }, 2000);
+      }, 1000);
       
     });
     document.title = jsonData.title;
@@ -79,48 +81,49 @@ export default {
   },
   methods: {
   enterAnimation(el, done) {
+    console.log('enter');
     gsap.fromTo(el, 
       { opacity: 0 }, 
       { 
         opacity: 1, 
-        duration: 2, 
+        duration: 0.7, 
         ease: "power2.out",
         onComplete: done 
       }
     );
   },
   leaveAnimation(el, done) {
+    console.log('leave');
     gsap.fromTo(el, 
       { opacity: 1 }, 
       { 
         opacity: 0, 
-        duration: 2, 
+        duration: 0.7, 
         ease: "power2.in",
         onComplete: done 
       }
     );
   },
   async loadResources() {
-      // Ici, chargez toutes vos ressources. Par exemple :
-      const imagesToLoad = [
-        imgBanner,
-        corporateImage1,
-        corporateImage2,
-        culinairesImage1,
-        culinairesImage2,
-        immobilieresImage1,
-        immobilieresImage2,
-        sportivesImage1,
-        sportivesImage2
-      ];
-
-      const promises = imagesToLoad.map(imgUrl => {
-        return new Promise((resolve, reject) => {
-          const img = new Image();
-          img.src = imgUrl;
-          img.onload = resolve;
-          img.onerror = reject;
-        });
+      // Si vous préchargez également des vidéos, ajustez cette fonction pour gérer les vidéos.
+      const promises = allAssets.map(assetUrl => {
+        if (assetUrl.endsWith('.mp4') || assetUrl.endsWith('.webm') || assetUrl.endsWith('.ogg')) {
+          // Gérez la précharge de vidéos si nécessaire
+          return new Promise((resolve, reject) => {
+            const video = document.createElement('video');
+            video.src = assetUrl;
+            video.onloadeddata = resolve;
+            video.onerror = reject;
+          });
+        } else {
+          // Pour les images et autres types de fichiers
+          return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.src = assetUrl;
+            img.onload = resolve;
+            img.onerror = reject;
+          });
+        }
       });
 
       await Promise.all(promises);

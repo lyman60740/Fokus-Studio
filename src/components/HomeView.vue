@@ -25,7 +25,7 @@ import HomeServices from './sections/HomeServices.vue';
 import HomeClients from './sections/HomeClients.vue';
 import HomeAbout from './sections/HomeAbout.vue';
 import ContactButton from './ContactButton.vue';
-import imgBanner from '../assets/images/placeholder-home.png';
+import imgBanner from '@/assets/images/placeholder-home.webp';
 
 
 export default {
@@ -41,25 +41,14 @@ export default {
       jsonData,
       imgBanner
     };
-  }
+  },
+
 };
 </script>
 
   <style lang="scss" scoped>
   @import '../css/variables.scss';
 
-  .container {
-    animation: appear 1s forwards ease-out;
-    opacity: 0;
-  }
-  @keyframes appear {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
 .heroBanner {
   // & video {
   //   width: 100%;

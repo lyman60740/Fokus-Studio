@@ -25,9 +25,7 @@
         >
            {{ item }}
         </p>
-
       </div>
-      
     </section>
     <router-link to="/contact">
         <ContactButton />

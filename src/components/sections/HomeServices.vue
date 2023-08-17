@@ -74,8 +74,6 @@ import jsonData from '../../data/services.json';
 
       // Définit un délai de 0.5 seconde avant de déclencher l'animation
       this.hoverDelay = setTimeout(() => {
-        
-
         gsap.to(e.target, {
           duration: this.duration,
           width: "calc(" + this.itemWidth + " + 10%)",

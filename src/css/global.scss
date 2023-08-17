@@ -4,6 +4,9 @@ body {
     font-family:'Montserrat', sans-serif !important;
     background: $primary-color;
 }
+html {
+    scroll-behavior: smooth;
+  }
 .container {
     display: flex;
     align-items: center;
@@ -61,15 +64,15 @@ input[type="text"]:focus {
     box-shadow: none;
 }
 
-img:not(.logo img) {
-    animation: appear 2s 0.2s forwards ease-out;
-    opacity: 0;
-}
-@keyframes appear {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
+// img:not(.logo img) {
+//     animation: appear 2s 0.2s forwards ease-out;
+//     opacity: 0;
+// }
+// @keyframes appear {
+//     0% {
+//       opacity: 0;
+//     }
+//     100% {
+//       opacity: 1;
+//     }
+//   }
