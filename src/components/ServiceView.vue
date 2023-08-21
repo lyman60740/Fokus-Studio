@@ -36,6 +36,7 @@
       v-for="item in filteredServices"
       :key="item.id"
       :to="`/services/${item.id}`"
+      @click="topScroll"
        >
       <div class="otherServices__bloc__item__title">
         <h3>Vidéos {{ item.title }}</h3>
@@ -66,6 +67,9 @@ import { computed, watch, ref } from 'vue';
 
 export default {
     name: 'ServiceView',
+    mounted() {
+      this.topScroll();
+    },
     setup() {
       const route = useRoute();
   const service = ref(null); // Déplacez la déclaration de service ici
@@ -100,9 +104,13 @@ export default {
         };
     },
     methods: {
-      
-
-}
+     topScroll() {
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }
+      , 100);
+},
+    },
 };
 </script>
 
