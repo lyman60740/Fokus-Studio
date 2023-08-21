@@ -28,17 +28,29 @@
             Vidéos {{ service.id }}
         </option>
     </select>
-</div>
+    </div>
 
-          
           <textarea v-model="form.message" placeholder="Décrivez brièvement votre projet "></textarea>
-          <input type="file" v-on:change="form.attachment" placeholder="Pièce jointe">
+
+          <div class="privacy-policy">
+              <input type="checkbox" id="acceptPrivacyPolicy" name="acceptPrivacyPolicy" required>
+              <label for="acceptPrivacyPolicy">Je reconnais avoir pris connaissance de la <a href="/lien-vers-votre-politique-de-confidentialite" target="_blank">politique de confidentialité</a> et je l’accepte.</label>
+          </div>
+
+          <div class="fileBloc">
+            <span>Ajouter une pièce jointe ( 20mo max )</span>
+            <input type="file" v-on:change="form.attachment" placeholder="Pièce jointe">
+          </div>
+          
           <button type="submit">Envoyer</button>
       </form>
     </div>
     <div class="contact__right bloc">
-      <h3>Loïc Jouenne</h3>
-      <span>Fondateur</span>
+      <div class="contact__right__txt">
+        <h3>Loïc Jouenne</h3>
+        <span>Fondateur</span>
+      </div>
+      <img src="../assets/logo/logo_titrage_blanc.svg" alt="">
     </div>
       
   </section>
@@ -135,9 +147,14 @@ methods: {
       color: $primary-color;
       padding: 40px 40px;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      
+      align-items: flex-end;
+      justify-content: space-between;
+      &__txt {
+        height: 57px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
       & h3 {
         color: $primary-color;
         font-weight: 700;
@@ -145,6 +162,10 @@ methods: {
       }
       & span {
         font-size: $font-size-texte;
+      }
+      & img {
+        width: 157px;
+        height: 57px;
       }
     }
     .contact__left {
@@ -162,7 +183,6 @@ methods: {
       &:last-child {
         margin-bottom: 30px;
       }
-      
     }
     }
     form {
@@ -187,24 +207,52 @@ methods: {
         margin-bottom: 15px;
       }
     }
-    input:not([type="file"]), textarea, select {
-      background: $light-blue;
-      border-radius: 8px;
-      padding: 7px 16px;
-      font-weight: 400;
-      font-size: $font-size-texte;
-      margin-bottom: 30px; 
-    }
+    input:not([type="file"]):not([type="checkbox"]), textarea, select {
+  background: $light-blue;
+  border-radius: 8px;
+  padding: 7px 16px;
+  font-weight: 400;
+  font-size: $font-size-texte;
+  margin-bottom: 30px; 
+}
+
     select {
       & option:not(:first-child) {
         text-transform: capitalize;
       }
-      
       border: none;
       &::placeholder {
         color: $light-black-font;
       }
-      
     }
+    .fileBloc {
+      display: flex;
+      flex-direction: column;
+      & span {
+        font-size: $font-size-texte;
+        margin-bottom: 15px;
+      }
+    }
+    button {
+      background: $secondary-color;
+      border-radius: 4px;
+      padding: 7px 16px;
+      font-weight: 400;
+      font-size: $font-size-texte;
+      color: $light-blue;
+      align-self: center;
+      margin-top: 30px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .privacy-policy {
+      margin-bottom: 30px;
+     & input[type="checkbox"] {
+      margin-right: 25px;
+      cursor: pointer;
+    }
+    }
+    
   </style>
   

@@ -42,7 +42,7 @@ p {
 a {
     cursor: pointer;
 }
-input:not([type="file"]), textarea {
+input:not([type="file"]):not([type="checkbox"]), textarea {
     margin: 0;
     padding: 0;
     border: none;
