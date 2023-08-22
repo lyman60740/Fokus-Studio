@@ -40,17 +40,6 @@ import LoaderView from './components/LoaderView.vue';
 
 import allAssets from '@/assets/preloadAssets';
 
-// import imgBanner from '@/assets/images/placeholder-home.webp';
-// import corporateImage1 from '@/assets/images/corporate_1.png';
-// import corporateImage2 from '@/assets/images/corporate_2.png';
-// import culinairesImage1 from '@/assets/images/culinaires_1.png';
-// import culinairesImage2 from '@/assets/images/culinaires_2.png';
-// import immobilieresImage1 from '@/assets/images/immobilieres_1.png';
-// import immobilieresImage2 from '@/assets/images/immobilieres_2.png';
-// import sportivesImage1 from '@/assets/images/sportives_1.png';
-// import sportivesImage2 from '@/assets/images/sportives_2.png';
-// import loicProfil from '@/assets/images/loic_profil.png';
-
 export default {
   name: 'App',
   components: {

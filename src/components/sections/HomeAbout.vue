@@ -38,8 +38,18 @@
           </div>
         </div>
         <div class="aboutHome__blocProcess__part tournage">
-          <div class="aboutHome__blocProcess__blocAnim"></div>
+          <div class="aboutHome__blocProcess__blocAnim">
+            <div class="tournage__box">
+              <div class="tournage__box__actionDial">
+              <span>action !</span>
+              </div>
+              <img src="../../assets/icons/action_top.svg" alt="" class="tournage__box__actionTop">
+              <img src="../../assets/icons/action_bot.svg" alt="" class="tournage__box__actionBot">
+            </div>
+            
+          </div>
           <div class="aboutHome__blocProcess__content">
+            
             <div class="aboutHome__blocProcess__content">
               <h4><strong>{{ jsonData.about.animations.secondBloc.title }}</strong></h4>
               <p>{{ jsonData.about.animations.secondBloc.texte }}</p>
@@ -112,11 +122,23 @@
     const tl = gsap.timeline({
   repeat: -1, // Répéter indéfiniment
   repeatDelay: 1,
+  delay: 0.5,
   scrollTrigger: {
     trigger: traits[0],
     start: 'top center', // Ajustez ce déclencheur selon vos besoins
     toggleActions: 'play none none reverse',
   },
+});
+
+const combinedTL = gsap.timeline({
+    repeat: -1,
+    repeatDelay: 2,
+    yoyo: true, // Pour faire jouer l'animation en avant puis en arrière
+    scrollTrigger: {
+        trigger: traits[0],
+        start: 'top center',
+        toggleActions: 'play none none reverse',
+    }
 });
 
 // Bouclez sur les traits pour la première phase (de -100% à 0%)
@@ -136,32 +158,70 @@ traits.forEach((trait) => {
     ease: "power3.out",
   }, `-=70%`); // Utilisez le même décalage négatif que dans la première phase
 });
-tl.to(rectangle, {
-    duration: 1, 
+
+
+combinedTL.addLabel("rectangleAnim");
+combinedTL.to(rectangle, {
+    duration: 2, 
     ease: "power3.out",
     y: 0,
-  },"<"); // Utilisez le même décalage négatif que dans la première phase
-  tl.to(rectangle, {
-    duration: 0.3, 
-    ease: "power3.out",
-    opacity: 0,
-  }); // Utilisez le même décalage négatif que dans la première phase
+}, "rectangleAnim");
+combinedTL.to(rectangle, {
+    duration: 1, 
+    ease: "power3.in",
+    backgroundColor: "#1B1B1B",
+}, "rectangleAnim");
 
+combinedTL.addLabel("boxRectangleAnim");
+combinedTL.to(boxRectangle, {
+    duration: 1, 
+    ease: "power3.in",
+    backgroundColor: "#1B1B1B",
+}, `-=110%`);
 
-  tl.to(boxRectangle, {
-    duration: 0.3, 
-    ease: "power3.out",
-    borderColor: "#1B1B1B",
-  borderWidth: "2px"
-  },"<"); // Utilisez le même décalage négatif que dans la première phase
-
-//TODO inverser l'animation post prod et optimiser les animations avec des .reverse etc
-
-  },
-    methods: {
-       
+const tournageTL = gsap.timeline({
+    repeat: -1,
+    repeatDelay: 1,
+    scrollTrigger: {
+        trigger: traits[0],
+        start: 'top center',
+        toggleActions: 'play none none reverse',
     }
-    
+});
+
+const actionTopAnimation = gsap.to('.tournage__box__actionTop', {
+    duration: 0.2, 
+    ease: "power0",
+    rotate: "25deg",
+ // L'effet yoyo pour cette animation particulière
+   // Répétez une fois pour obtenir l'effet yoyo complet
+    delay: 1
+});
+
+// Ajoutez l'animation yoyo à la timeline
+tournageTL.add(actionTopAnimation);
+
+tournageTL.fromTo('.tournage__box__actionDial', {
+    x: "110px",
+    y: "67px",
+    opacity: 0,
+} ,{
+    duration: 0.5, 
+    x: "150px",
+    y: "67px",
+    ease: "power0",
+    opacity: 1,
+});
+
+tournageTL.to('.tournage__box__actionDial', {
+    duration: 0.5, 
+    opacity: 0,
+    ease: "power0",
+    x: "190px"
+});
+
+
+    },
 }
   </script>
 
@@ -268,10 +328,9 @@ tl.to(rectangle, {
             border-style: solid;
             border-radius: 5px;
             opacity: 1;
-
           }
         &__rectangle {
-          height: 37.5px;
+          height: 33px;
           border: 2px solid $secondary-color;
           border-radius: 5px;
           
@@ -291,6 +350,31 @@ tl.to(rectangle, {
             width: 120px;
             transform: translate(0, 100%);
           }
+        }
+      }
+
+      .tournage {
+        &__box {
+          height: 100%;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          position: relative;
+          & img {
+            width: 130px;
+          }
+          &__actionTop {
+            transform-origin: 4% 100%;
+            transform: translate( -11px, 1px);
+          }
+          &__actionDial {
+          position: absolute;
+          }
+        }
+        
+        & .aboutHome__blocProcess__blocAnim {
+          position: relative;
         }
       }
 

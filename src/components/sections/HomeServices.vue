@@ -7,10 +7,16 @@
         v-for="(item, index) in jsonData.services" 
         :key="item.id" 
         :to="`/services/${item.id}`"
-        :style="{ backgroundImage: `url(${getImage(item)})`, width: itemWidth, left: leftPosition(index) }" 
+        :style="{width: itemWidth, left: leftPosition(index) }" 
         @mouseover="hoverPreview($event)"
         @mouseleave="leavePreview($event)"
         >
+            <video
+            :src="getImage(item)"
+            muted
+            loop
+            playsinline
+            ></video>
             <div class="servicesBloc__item__title"  >
                 <text>Vidéos</text>
                 <h3>{{ item.title }}</h3>
@@ -24,20 +30,19 @@
   <script>
 import { gsap, CustomEase } from 'gsap/all';
 
-import corporateImage from '@/assets/images/corporate_1.png';
-import corporateImage2 from '@/assets/images/placeholder-corporate.png';
-import culinairesImage2 from '@/assets/images/placeholder-culinaires.png';
-import immobilieresImage2 from '@/assets/images/placeholder-immobilieres.png';
-import sportivesImage from '@/assets/images/placeholder-sportives.png';
+import videoCorpo from '@/assets/videos/loop_video_corpo.mp4';
+import videoCuli from '@/assets/videos/loop_video_culinaire.mp4';
+import videoImmo from '@/assets/videos/loop_video_immo.mp4';
+import videoSport from '@/assets/videos/loop_video_sport.mp4';
+
 gsap.registerPlugin(CustomEase);
 const myCustomEase = CustomEase.create("custom", "M0,0 C0.532,0 0.392,0.51 1,0.988");
 import jsonData from '../../data/services.json';
   export default {
     name: 'HomeServices',
     data() {
-    return {
+    return { 
       jsonData,
-      corporateImage,
       duration: 0.5,
       hoverDelay: null,
     };
@@ -55,13 +60,13 @@ import jsonData from '../../data/services.json';
       // Vous pouvez utiliser un switch ou des conditions pour retourner l'image correcte
       switch (item.title) {
         case 'corporate':
-          return corporateImage2;
+          return videoCorpo;
         case 'immobilières':
-          return immobilieresImage2;
+          return videoImmo;
           case 'culinaires':
-          return culinairesImage2;
+          return videoCuli;
         case 'sportives':
-          return sportivesImage;
+          return videoSport;
         // ... autres cas
         default:
           return null; // ou une image par défaut
@@ -69,25 +74,33 @@ import jsonData from '../../data/services.json';
     },
     
  hoverPreview(e) {
-      // Annule le délai précédent si l'utilisateur sort du survol avant 0.5 seconde
       clearTimeout(this.hoverDelay);
-
-      // Définit un délai de 0.5 seconde avant de déclencher l'animation
+      const currentTarget = e.currentTarget;
       this.hoverDelay = setTimeout(() => {
-        gsap.to(e.target, {
+        console.log(currentTarget);
+        gsap.to(currentTarget, {
           duration: this.duration,
-          width: "calc(" + this.itemWidth + " + 10%)",
+          width: "calc(" + this.itemWidth + " + 20%)",
           ease: myCustomEase,
         });
+        const videoElement = currentTarget.querySelector('video');
+        if (videoElement) {
+            videoElement.play();
+        }
       }, 300);
     },
     leavePreview(e) {
       clearTimeout(this.hoverDelay);
-      gsap.to(e.target, {
+      const currentTarget = e.currentTarget;
+      gsap.to(e.currentTarget, {
         duration: this.duration,
         width: this.itemWidth,
         ease: myCustomEase,
       });
+      const videoElement = currentTarget.querySelector('video');
+        if (videoElement) {
+            videoElement.pause();
+        }
     },
   
   }
@@ -111,12 +124,16 @@ import jsonData from '../../data/services.json';
     
     &__item {
         height: 70vh;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
         position: absolute;
         transform-origin: center;
         cursor: pointer;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        & video {
+          height: 100%;
+        }
         &:nth-child(1) {
            z-index: 5;
         }

@@ -2,10 +2,9 @@
   <div class="container">
     <section class="heroBanner">
       <div class="video-background">
-    <!-- <video playsinline  muted loop>
-      <source src="../assets/videos/theWave.mp4" type="video/mp4">
-    </video> -->
-    <img :src="imgBanner" alt="">
+        <video ref="videoRef" playsinline muted loop autoplay>
+          <source src="../assets/videos/bande_demo_fokus-studio.mp4" type="video/mp4">
+        </video>
     <h1>{{ jsonData.title }}</h1>
   </div> 
   </section>
@@ -25,8 +24,10 @@ import HomeServices from './sections/HomeServices.vue';
 import HomeClients from './sections/HomeClients.vue';
 import HomeAbout from './sections/HomeAbout.vue';
 import ContactButton from './ContactButton.vue';
-import imgBanner from '@/assets/images/placeholder-home.webp';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger);
 
 export default {
   name: 'HomeView',
@@ -39,21 +40,38 @@ export default {
   data() {
     return {
       jsonData,
-      imgBanner
     };
   },
+  mounted() {
+    this.setupScrollTrigger();
+  },
+  methods: {
+    setupScrollTrigger() {
+      const videoElement = this.$refs.videoRef;
 
+      ScrollTrigger.create({
+        trigger: videoElement,
+        start: "top bottom", // Quand le haut de la vidéo touche le bas de la fenêtre d'affichage
+        end: "bottom top", // Quand le bas de la vidéo touche le haut de la fenêtre d'affichage
+        onEnter: () => videoElement.play(),
+        onLeave: () => videoElement.pause(),
+        onEnterBack: () => videoElement.play(),
+        onLeaveBack: () => videoElement.pause()
+      });
+    }
+  }
 };
+
 </script>
 
   <style lang="scss" scoped>
   @import '../css/variables.scss';
 
 .heroBanner {
-  // & video {
-  //   width: 100%;
-  //   height: 100vh;
-  // }
+  & video {
+    width: 100%;
+    height: 100vh;
+  }
   height: 100vh;
   position: relative;
   margin-top: 91px;
