@@ -3,7 +3,7 @@
     <section class="heroBanner">
       <div class="video-background">
         <video ref="videoRef" playsinline muted loop autoplay>
-          <source src="../assets/videos/bande_demo_fokus-studio.mp4" type="video/mp4">
+          <source src="../assets/videos/bande_demo_fokus-studio.webm" type="video/mp4">
         </video>
     <h1>{{ jsonData.title }}</h1>
   </div> 
