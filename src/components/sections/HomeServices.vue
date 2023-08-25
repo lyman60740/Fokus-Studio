@@ -11,6 +11,7 @@
         @mouseover="hoverPreview($event)"
         @mouseleave="leavePreview($event)"
         >
+        <div class="servicesBloc__item__cache"></div>
             <video
             :src="getImage(item)"
             muted
@@ -34,6 +35,7 @@ import videoCorpo from '@/assets/videos/loop_video_corpo.mp4';
 import videoCuli from '@/assets/videos/loop_video_culinaire.mp4';
 import videoImmo from '@/assets/videos/loop_video_immo.mp4';
 import videoSport from '@/assets/videos/loop_video_sport.mp4';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(CustomEase);
 const myCustomEase = CustomEase.create("custom", "M0,0 C0.532,0 0.392,0.51 1,0.988");
@@ -51,6 +53,29 @@ import jsonData from '../../data/services.json';
   itemWidth() {
     return 'calc(0.5px + '+ 100 / this.jsonData.services.length + '%)';
   }
+},
+mounted() {
+    // Sélectionnez tous les éléments que vous voulez animer
+    gsap.registerPlugin(ScrollTrigger);
+    const caches = document.querySelectorAll('.servicesBloc__item__cache');
+
+    caches.forEach((roulette, index) => {
+
+        gsap.to(roulette, {
+            scrollTrigger: {
+                trigger: roulette,
+                start: 'center bottom',
+                onEnter: () => gsap.to(roulette, {
+                    delay: index * 0.1, // 30% delay in terms of time
+                    duration: 3,
+                    ease: "power3.out",
+                    y: '-100%',
+                }),
+                markers: true,  // Optional: to see the trigger points
+                toggleActions: 'play none none none',
+            }
+        });
+    });
 },
     methods: {
         leftPosition(index) {
@@ -73,35 +98,61 @@ import jsonData from '../../data/services.json';
       }
     },
     
- hoverPreview(e) {
-      clearTimeout(this.hoverDelay);
-      const currentTarget = e.currentTarget;
-      this.hoverDelay = setTimeout(() => {
-        console.log(currentTarget);
-        gsap.to(currentTarget, {
-          duration: this.duration,
-          width: "calc(" + this.itemWidth + " + 20%)",
-          ease: myCustomEase,
+    hoverPreview(e) {
+    clearTimeout(this.hoverDelay);
+    const currentTarget = e.currentTarget;
+
+    // Assombrir tous les éléments .servicesBloc__item
+    const allItems = document.querySelectorAll('.servicesBloc__item');
+    allItems.forEach(item => {
+        gsap.to(item, {
+            duration: this.duration,
+            filter: 'brightness(0.5)',
+            ease: myCustomEase,
         });
+    });
+
+    this.hoverDelay = setTimeout(() => {
+        gsap.to(currentTarget, {
+            duration: this.duration,
+            width: "calc(" + this.itemWidth + " + 20%)",
+            filter: 'brightness(1)',  // Remettre l'opacité de l'élément survolé à 1
+            ease: myCustomEase,
+        });
+
         const videoElement = currentTarget.querySelector('video');
         if (videoElement) {
             videoElement.play();
         }
-      }, 300);
-    },
-    leavePreview(e) {
-      clearTimeout(this.hoverDelay);
-      const currentTarget = e.currentTarget;
-      gsap.to(e.currentTarget, {
+    }, 150); // J'ai ajouté un délai ici pour garantir l'ordre d'exécution
+}
+,
+leavePreview(e) {
+    clearTimeout(this.hoverDelay);
+    const currentTarget = e.currentTarget;
+    
+    // Restaurer le brightness pour tous les éléments .servicesBloc__item
+    const allItems = document.querySelectorAll('.servicesBloc__item');
+    allItems.forEach(item => {
+        gsap.to(item, {
+            duration: this.duration,
+            filter: 'brightness(1)',  // Restaurer la luminosité
+            ease: myCustomEase,
+        });
+    });
+
+    gsap.to(currentTarget, {
         duration: this.duration,
         width: this.itemWidth,
         ease: myCustomEase,
-      });
-      const videoElement = currentTarget.querySelector('video');
-        if (videoElement) {
-            videoElement.pause();
-        }
-    },
+    });
+    
+    const videoElement = currentTarget.querySelector('video');
+    if (videoElement) {
+        videoElement.pause();
+    }
+}
+,
   
   }
 }
@@ -131,6 +182,17 @@ import jsonData from '../../data/services.json';
         display: flex;
         align-items: center;
         justify-content: center;
+        filter: brightness(1);
+        &__cache {
+          width: 100%;
+          height: 100%;
+          border-bottom: 4px solid $gray-bg;
+          background: $primary-color;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          z-index: 5;
+        }
         & video {
           height: 100%;
         }
