@@ -26,7 +26,7 @@ import HomeAbout from './sections/HomeAbout.vue';
 import ContactButton from './ContactButton.vue';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+//TODO : debugger l'erreur sur la video en auto play quand on revient sur la page d'acceuil ( vu que le scroll trop bug)
 gsap.registerPlugin(ScrollTrigger);
 
 export default {
