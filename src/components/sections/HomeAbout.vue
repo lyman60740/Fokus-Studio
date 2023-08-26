@@ -215,7 +215,6 @@ outerTimeline
   .to(svgElement.querySelector('g.outer'), {
     duration: 1,
     ease: "elastic",
- 
     scale: 0.95,
     repeat: 1,
      transformOrigin: "50% 50%",
