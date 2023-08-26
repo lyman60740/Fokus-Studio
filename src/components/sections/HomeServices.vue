@@ -71,7 +71,6 @@ mounted() {
                     ease: "power3.out",
                     y: '-100%',
                 }),
-                markers: true,  // Optional: to see the trigger points
                 toggleActions: 'play none none none',
             }
         });

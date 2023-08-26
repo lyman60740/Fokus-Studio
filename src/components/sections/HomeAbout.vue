@@ -40,11 +40,7 @@
         <div class="aboutHome__blocProcess__part tournage">
           <div class="aboutHome__blocProcess__blocAnim">
             <div class="tournage__box">
-              <div class="tournage__box__actionDial">
-              <span>action !</span>
-              </div>
-              <img src="../../assets/icons/action_top.svg" alt="" class="tournage__box__actionTop">
-              <img src="../../assets/icons/action_bot.svg" alt="" class="tournage__box__actionBot">
+              
             </div>
             
           </div>
@@ -78,6 +74,7 @@
   
   <script>
   //TODO: ajouter les données dynamique du json de la section about et (boucler pour pouvoir ajouter des paragaphes)
+  //TODO eclaircir les bande de post production
   import jsonData from '../../data/home.json';
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -178,48 +175,6 @@ combinedTL.to(boxRectangle, {
     ease: "power3.in",
     backgroundColor: "#1B1B1B",
 }, `-=110%`);
-
-const tournageTL = gsap.timeline({
-    repeat: -1,
-    repeatDelay: 1,
-    scrollTrigger: {
-        trigger: traits[0],
-        start: 'top center',
-        toggleActions: 'play none none reverse',
-    }
-});
-
-const actionTopAnimation = gsap.to('.tournage__box__actionTop', {
-    duration: 0.2, 
-    ease: "power0",
-    rotate: "25deg",
- // L'effet yoyo pour cette animation particulière
-   // Répétez une fois pour obtenir l'effet yoyo complet
-    delay: 1
-});
-
-// Ajoutez l'animation yoyo à la timeline
-tournageTL.add(actionTopAnimation);
-
-tournageTL.fromTo('.tournage__box__actionDial', {
-    x: "110px",
-    y: "67px",
-    opacity: 0,
-} ,{
-    duration: 0.5, 
-    x: "150px",
-    y: "67px",
-    ease: "power0",
-    opacity: 1,
-});
-
-tournageTL.to('.tournage__box__actionDial', {
-    duration: 0.5, 
-    opacity: 0,
-    ease: "power0",
-    x: "190px"
-});
-
 
     },
 }

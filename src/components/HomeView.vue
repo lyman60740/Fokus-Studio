@@ -2,7 +2,7 @@
   <div class="container">
     <section class="heroBanner">
       <div class="video-background">
-        <video ref="videoRef" playsinline muted loop autoplay>
+        <video ref="videoRef" playsinline muted loop>
           <source src="../assets/videos/bande_demo_fokus-studio.webm" type="video/mp4">
         </video>
     <h1>{{ jsonData.title }}</h1>
@@ -44,6 +44,7 @@ export default {
   },
   mounted() {
     this.setupScrollTrigger();
+    window.scrollTo(0, 0);
   },
   methods: {
     setupScrollTrigger() {
@@ -51,10 +52,14 @@ export default {
 
       ScrollTrigger.create({
         trigger: videoElement,
-        start: "top bottom", // Quand le haut de la vidéo touche le bas de la fenêtre d'affichage
-        end: "bottom top", // Quand le bas de la vidéo touche le haut de la fenêtre d'affichage
-        onEnter: () => videoElement.play(),
-        onLeave: () => videoElement.pause(),
+        start: "top bottom", 
+        end: "bottom top", 
+        onEnter: () => {
+          videoElement.play().catch(error => console.error("Play error:", error));
+        },
+        onLeave: () => {
+          videoElement.pause();
+        },
         onEnterBack: () => videoElement.play(),
         onLeaveBack: () => videoElement.pause()
       });

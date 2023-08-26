@@ -91,6 +91,9 @@ import jsonData from '../data/footer.json';
         &__logo{
           & img {
             height: 57px;
+            &:first-child {
+              margin-right: 20px;
+            }
           }
         }
         &__slogan {
