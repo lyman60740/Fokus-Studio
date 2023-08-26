@@ -75,6 +75,7 @@ mounted() {
             }
         });
     });
+    this.$store.commit('setHomeServicesReady', true);
 },
     methods: {
         leftPosition(index) {

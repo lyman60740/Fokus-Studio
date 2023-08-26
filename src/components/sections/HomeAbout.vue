@@ -41,6 +41,25 @@
           <div class="aboutHome__blocProcess__blocAnim">
             <div class="tournage__box">
               
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 180 180" enable-background="new 0 0 180 180" xml:space="preserve">
+                  <g class="outer">
+                <circle stroke="#202123" stroke-width="7" stroke-miterlimit="10" cx="90" cy="90" r="85.5"/>
+                <path fill="none" stroke="#202123" stroke-width="4" stroke-miterlimit="10" d="M17.9,71.7C23.9,47.4,42,28,65.3,19.8 M154,127.2
+                  c-5.7,9.6-13.4,18-22.6,24.2"/>
+                  </g>
+                  <g class="mid">
+                <circle stroke="#202123" stroke-width="11" stroke-miterlimit="10" cx="90" cy="90" r="59.8"/>
+                <path fill="none" stroke-width="3" stroke-miterlimit="10" d="M109.3,33.4c15.8,5.4,28.7,17.2,35.4,32.5 M61.5,142.6c-7.8-4.2-14.7-10.3-19.9-17.5"/>
+                  </g>
+                  <g class="inner">
+                <circle stroke="#202123" stroke-miterlimit="10" cx="90" cy="90" r="18"/>
+                  </g>
+                  <g class="lens-flare">
+                <circle fill="#FFFFFF" cx="108.6" cy="66.2" r="19.9"/>
+                <circle fill="#FFFFFF" cx="73.9" cy="112.5" r="10.9"/>
+                  </g>
+                </svg>
+             
             </div>
             
           </div>
@@ -78,6 +97,9 @@
   import jsonData from '../../data/home.json';
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import chroma from 'chroma-js';
+
+
   export default {
     name: 'HomeAbout',
     data() {
@@ -117,10 +139,10 @@
     });
 
     const tl = gsap.timeline({
-  repeat: -1, // Répéter indéfiniment
-  repeatDelay: 1,
-  delay: 0.5,
-  scrollTrigger: {
+    repeat: -1, // Répéter indéfiniment
+    repeatDelay: 1,
+    delay: 0.5,
+    scrollTrigger: {
     trigger: traits[0],
     start: 'top center', // Ajustez ce déclencheur selon vos besoins
     toggleActions: 'play none none reverse',
@@ -166,16 +188,101 @@ combinedTL.to(rectangle, {
 combinedTL.to(rectangle, {
     duration: 1, 
     ease: "power3.in",
-    backgroundColor: "#1B1B1B",
+    backgroundColor: "#3a3a3a",
 }, "rectangleAnim");
 
 combinedTL.addLabel("boxRectangleAnim");
 combinedTL.to(boxRectangle, {
     duration: 1, 
     ease: "power3.in",
-    backgroundColor: "#1B1B1B",
+    backgroundColor: "#3a3a3a",
 }, `-=110%`);
 
+// Sélectionnez l'élément SVG
+const svgElement = document.querySelector('.tournage__box');
+
+// Couleurs (remplacez par vos valeurs)
+const primaryColor = "#202123"; // Remplacez par la valeur de votre $primary-color
+
+// Créez des timelines pour chaque animation
+const outerTimeline = gsap.timeline({ paused: true });
+const midTimeline = gsap.timeline({ paused: true });
+const innerTimeline = gsap.timeline({ paused: true });
+const flareTimeline = gsap.timeline({ paused: true });
+
+// Animation pour g.outer
+outerTimeline
+  .to(svgElement.querySelector('g.outer'), {
+    duration: 1,
+    ease: "elastic",
+ 
+    scale: 0.95,
+    repeat: 1,
+     transformOrigin: "50% 50%",
+    yoyo: true
+  })
+  .to(svgElement.querySelector('g.outer'), {
+    duration: 0.5,
+    rotation: 45,
+    ease: "power3.inOut",
+    repeat: 1,
+     transformOrigin: "50% 50%",
+    yoyo: true
+  }, "-=0.3"); // Commencez en même temps que la première animation
+
+// Animation pour g.mid
+midTimeline
+  .to(svgElement.querySelector('g.mid'), {
+    duration: 0.4,
+    ease: "power3.inOut",
+    fill: chroma(primaryColor).brighten(0.2).hex(),
+    scale: 0.95,
+    repeat: 1,
+     transformOrigin: "50% 50%",
+    yoyo: true
+  });
+
+// Animation pour g.inner
+innerTimeline
+  .to(svgElement.querySelector('g.inner'), {
+    duration: 0.8,
+    ease: "power3.inOut",
+    fill: chroma(primaryColor).brighten(0.3).hex(),
+    scale: 1.2,
+    repeat: 1,
+     transformOrigin: "50% 50%",
+    yoyo: true,
+    strokeWidth: 25
+  });
+
+// Animation pour g.lens-flare
+flareTimeline
+  .to(svgElement.querySelector('g.lens-flare'), {
+    duration: 1,
+    ease: "power3.inOut",
+    opacity: 0.8,
+    scale: 1.05,
+    repeat: 1,
+     transformOrigin: "50% 50%",
+    yoyo: true
+  });
+
+// Écoutez l'événement hover sur l'élément SVG
+svgElement.addEventListener('mouseenter', () => {
+  outerTimeline.play();
+  midTimeline.play();
+  innerTimeline.play();
+  flareTimeline.play();
+});
+
+svgElement.addEventListener('mouseleave', () => {
+  outerTimeline.reverse();
+  midTimeline.reverse();
+  innerTimeline.reverse();
+  flareTimeline.reverse();
+});
+
+this.$store.commit('setHomeAboutReady', true);
     },
 }
   </script>
@@ -286,7 +393,7 @@ combinedTL.to(boxRectangle, {
           }
         &__rectangle {
           height: 33px;
-          border: 2px solid $secondary-color;
+          border: 2px solid #3a3a3a;
           border-radius: 5px;
           
           &:nth-child(1) {
@@ -315,21 +422,6 @@ combinedTL.to(boxRectangle, {
           display: flex;
           flex-direction: column;
           align-items: center;
-          position: relative;
-          & img {
-            width: 130px;
-          }
-          &__actionTop {
-            transform-origin: 4% 100%;
-            transform: translate( -11px, 1px);
-          }
-          &__actionDial {
-          position: absolute;
-          }
-        }
-        
-        & .aboutHome__blocProcess__blocAnim {
-          position: relative;
         }
       }
 
@@ -337,4 +429,37 @@ combinedTL.to(boxRectangle, {
         font-size: 24px;
         font-weight: 700;
       }
+
+
+      .tournage__box svg {
+        scale: 0.4;
+  width: auto;
+  overflow: visible;
+  transition: all .3s ease-in-out;
+  g.outer {
+    fill: $primary-color;
+    transition: fill .5s ease-in;
+  }
+  g.outer, g.mid, g.inner, g.lens-flare {
+    transform-origin: 50% 50%;
+  }
+  g.mid {
+    fill: darken($primary-color, 25%);
+    transition: fill .5s ease-in;
+    path {
+      stroke: darken($primary-color, 25%);
+    }
+  }
+  g.inner {
+    stroke-width: 20;
+    fill: darken($primary-color, 25%);
+    transition: stroke-width .5s ease-in, fill .5s ease-in;
+  }
+  g.lens-flare {
+    opacity: .6;
+    transition: opacity 1s ease-in;
+  }
+}
+
+
 </style>

@@ -6,17 +6,23 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default createStore({
     state: {
-      // Votre état ici
+      homeServicesReady: false,
+      homeAboutReady: false,
     },
     mutations: {
-      // Vos mutations ici
+      setHomeServicesReady(state, value) {
+        state.homeServicesReady = value;
+      },
+      setHomeAboutReady(state, value) {
+        state.homeAboutReady = value;
+      },
     },
     actions: {
         animateElement(_, element) {
           gsap.to(element, {
             scrollTrigger: {
               trigger: element,
-              start: 'top 70%', // Vous pouvez ajuster ce déclencheur selon vos besoins
+              start: 'top 70%', 
               toggleActions: 'play none none reverse',
             },
             duration: 1,

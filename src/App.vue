@@ -49,8 +49,12 @@ export default {
   },
   data() {
   return {
-    isLoading: true  // Ajoutez ceci
+    isLoading: true
   };
+},
+watch: {
+  '$store.state.homeServicesReady': 'checkAllComponentsReady',
+  '$store.state.homeAboutReady': 'checkAllComponentsReady'
 },
   mounted() {
     this.loadResources().then(() => {
@@ -69,6 +73,12 @@ export default {
     metaDescription.setAttribute('content', jsonData.description);
   },
   methods: {
+    checkAllComponentsReady() {
+    if (this.$store.state.homeServicesReady && this.$store.state.homeAboutReady) {
+      this.isLoading = false;
+      console.log('All components are ready');
+    }
+  },
   enterAnimation(el, done) {
     console.log('enter');
     gsap.fromTo(el, 
