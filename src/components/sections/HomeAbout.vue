@@ -204,14 +204,20 @@ const svgElement = document.querySelector('.tournage__box');
 // Couleurs (remplacez par vos valeurs)
 const primaryColor = "#202123"; // Remplacez par la valeur de votre $primary-color
 
-// Créez des timelines pour chaque animation
-const outerTimeline = gsap.timeline({ paused: true });
-const midTimeline = gsap.timeline({ paused: true });
-const innerTimeline = gsap.timeline({ paused: true });
-const flareTimeline = gsap.timeline({ paused: true });
+const lensTL = gsap.timeline({
+    repeat: -1,
+    repeatDelay: 1,
+    yoyo: true, // Pour faire jouer l'animation en avant puis en arrière
+    scrollTrigger: {
+        trigger: traits[0],
+        start: 'top center',
+        toggleActions: 'play none none reverse',
+    }
+});
+
 
 // Animation pour g.outer
-outerTimeline
+lensTL
   .to(svgElement.querySelector('g.outer'), {
     duration: 1,
     ease: "elastic",
@@ -230,7 +236,7 @@ outerTimeline
   }, "-=0.3"); // Commencez en même temps que la première animation
 
 // Animation pour g.mid
-midTimeline
+lensTL
   .to(svgElement.querySelector('g.mid'), {
     duration: 0.4,
     ease: "power3.inOut",
@@ -242,7 +248,7 @@ midTimeline
   });
 
 // Animation pour g.inner
-innerTimeline
+lensTL
   .to(svgElement.querySelector('g.inner'), {
     duration: 0.8,
     ease: "power3.inOut",
@@ -255,7 +261,7 @@ innerTimeline
   });
 
 // Animation pour g.lens-flare
-flareTimeline
+lensTL
   .to(svgElement.querySelector('g.lens-flare'), {
     duration: 1,
     ease: "power3.inOut",
@@ -266,20 +272,7 @@ flareTimeline
     yoyo: true
   });
 
-// Écoutez l'événement hover sur l'élément SVG
-svgElement.addEventListener('mouseenter', () => {
-  outerTimeline.play();
-  midTimeline.play();
-  innerTimeline.play();
-  flareTimeline.play();
-});
 
-svgElement.addEventListener('mouseleave', () => {
-  outerTimeline.reverse();
-  midTimeline.reverse();
-  innerTimeline.reverse();
-  flareTimeline.reverse();
-});
 
 this.$store.commit('setHomeAboutReady', true);
     },
@@ -415,6 +408,10 @@ this.$store.commit('setHomeAboutReady', true);
       }
 
       .tournage {
+        & .aboutHome__blocProcess__blocAnim{
+          transform: translateY(-50%);
+          scale: 0.4;
+        }
         &__box {
           height: 100%;
           width: 100%;
@@ -431,7 +428,6 @@ this.$store.commit('setHomeAboutReady', true);
 
 
       .tournage__box svg {
-        scale: 0.4;
   width: auto;
   overflow: visible;
   transition: all .3s ease-in-out;
