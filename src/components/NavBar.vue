@@ -23,11 +23,18 @@
       <a href="#" ref="link3" @mouseover="hoverSocialLink" @mouseleave="leaveSocialLink"><img src="../assets/icons/youtube.svg" alt="youtube" /></a>
       <a href="#" ref="link4" @mouseover="hoverSocialLink" @mouseleave="leaveSocialLink"><img src="../assets/icons/linkedin.svg" alt="linkedin" /></a>
     </div>
+    <div class="navBar__burger" @click="toggleMenu">
+      <div></div>
+      <div></div>
+      <BurgerMenu v-if="isMenuOpen"/>
+    </div>
+    
   </div>
 </template>
 
 <script>
 import ContactButton from './ContactButton.vue'
+import BurgerMenu from './BurgerMenu.vue'
 import { gsap } from 'gsap';
 
 export default {
@@ -36,11 +43,13 @@ export default {
     msg: String
   },
   components: {
-    ContactButton
+    ContactButton,
+    BurgerMenu
   },
   data() {
     return {
       lastScrollTop: 0,
+      isMenuOpen: false
     };
   },
   mounted() {
@@ -50,7 +59,25 @@ export default {
     window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
-    
+    toggleMenu() {
+        this.isMenuOpen = !this.isMenuOpen;
+        if (this.isMenuOpen) {
+          document.querySelector('.container').classList.add('blurEffect');
+          document.querySelector('.footer').classList.add('blurEffect');
+          document.querySelector('.navBar__links').classList.add('blurEffect');
+          document.querySelector('.navBar__reseaux').classList.add('blurEffect');
+          document.querySelector('.navBar__logo').classList.add('blurEffect');
+          document.querySelector('video').pause();
+        } else {
+          document.querySelector('.container').classList.remove('blurEffect');
+          document.querySelector('.footer').classList.remove('blurEffect');
+          document.querySelector('.navBar__links').classList.remove('blurEffect');
+          document.querySelector('.navBar__reseaux').classList.remove('blurEffect');
+          document.querySelector('.navBar__logo').classList.remove('blurEffect');
+          document.querySelector('video').play();
+        }
+        
+    },
     hoverSocialLink(event) {
       gsap.to(event.currentTarget, {
         y: -5,
@@ -137,4 +164,21 @@ export default {
     width: 48px;
     height: 67px;
   }
+
+  @media screen and (max-width: 1250px) {
+  .navBar__burger {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: flex-end;
+    & div:not(.burgerMenu) {
+      height: 3px;
+      width: 30px;
+      background: $secondary-color;
+      &:nth-child(1) {
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
 </style>

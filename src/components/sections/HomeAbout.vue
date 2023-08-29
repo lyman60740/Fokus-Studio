@@ -244,7 +244,7 @@ lensTL
     repeat: 1,
      transformOrigin: "50% 50%",
     yoyo: true
-  });
+  }, "<");
 
 // Animation pour g.inner
 lensTL
@@ -257,7 +257,7 @@ lensTL
      transformOrigin: "50% 50%",
     yoyo: true,
     strokeWidth: 25
-  });
+  },"<");
 
 // Animation pour g.lens-flare
 lensTL
@@ -269,7 +269,7 @@ lensTL
     repeat: 1,
      transformOrigin: "50% 50%",
     yoyo: true
-  });
+  }, "<");
 
 
 
