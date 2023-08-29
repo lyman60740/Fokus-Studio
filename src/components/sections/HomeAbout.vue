@@ -215,7 +215,6 @@ const lensTL = gsap.timeline({
     }
 });
 
-
 // Animation pour g.outer
 lensTL
   .to(svgElement.querySelector('g.outer'), {

@@ -12,25 +12,37 @@
       </div>
       <form @submit.prevent="sendEmail">
         <div class="name">
-          <input type="text" v-model="form.firstName" placeholder="Prénom">
-          <input type="text" v-model="form.lastName" placeholder="Nom">
+          <div>
+            <input type="text" v-model="form.firstName" placeholder="Prénom">
+          </div>
+          <div>
+            <input type="text" v-model="form.lastName" placeholder="Nom">
+          </div>
         </div>
         <div class="mailPhone">
-          <input type="email" v-model="form.email" placeholder="Adresse mail">
-          <input type="tel" v-model="form.phone" placeholder="N° de téléphone">
+          <div>
+            <input type="email" v-model="form.email"  @input="validateField('email', 'email')" placeholder="Adresse mail">
+          </div>
+          <div class="tel">
+            <input type="tel" v-model="form.phone" @input="validateField('phone', 'phone')" placeholder="N° de téléphone">
+          </div>
         </div>
           
         <div class="objet">
     <span>Votre demande concerne : </span>
-    <select v-model="form.subject">
+    <div>
+      <select v-model="form.subject">
       <option value="" disabled selected>Choisissez une catégorie</option>
         <option v-for="service in services" :key="service.id" :value="service.id">
             Vidéos {{ service.id }}
         </option>
-    </select>
+      </select>
     </div>
-
-          <textarea v-model="form.message" placeholder="Décrivez brièvement votre projet "></textarea>
+    </div>
+          <div class="textAreaBox">
+            <textarea v-model="form.message" placeholder="Décrivez brièvement votre projet "></textarea>
+          </div>
+          
 
           <div class="privacy-policy">
               <input type="checkbox" id="acceptPrivacyPolicy" name="acceptPrivacyPolicy" required>
@@ -38,11 +50,11 @@
           </div>
 
           <div class="fileBloc">
-            <span>Ajouter une pièce jointe ( 20mo max )</span>
-            <input type="file" v-on:change="form.attachment" placeholder="Pièce jointe">
+            <span>Ajouter une pièce jointe ( 20MB max )</span>
+            <input type="file" accept="image/*,application/pdf" v-on:change="form.attachment" @change="checkFileSize" placeholder="Pièce jointe">
           </div>
           
-          <button type="submit">Envoyer</button>
+          <button type="submit" :disabled="!isFormValid" >Envoyer</button>
       </form>
     </div>
     <div class="contact__right bloc">
@@ -58,7 +70,6 @@
 
   
   <script>
-//   import { gsap } from 'gsap';
   import jsonData from '../data/contact.json';
   import servicesData from '../data/services.json';
   
@@ -75,11 +86,32 @@
             message: '',
             attachment: null,
         },
+        regex: {
+            email: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+            phone: /^[0-9+-.()/\s]*$/,  // Permet des chiffres, +, -, ., (, ), / et des espaces. Ajustez selon vos besoins.
+        },
+        errors: {
+            email: false,
+            phone: false,
+            // ... ajoutez des erreurs pour d'autres champs si nécessaire
+        },
         jsonData,
         services: servicesData.services
     };
 },
 methods: {
+  validateField(field, pattern) {
+        this.errors[field] = !this.regex[pattern].test(this.form[field]);
+    },
+    checkFileSize(event) {
+      const maxFileSize = 20 * 1024 * 1024; // 20MB
+      const inputFile = event.target;
+
+      if (inputFile.files && inputFile.files[0].size > maxFileSize) {
+        alert('Le fichier est trop volumineux Veuillez télécharger un fichier de moins de 20MB.');
+        inputFile.value = ''; // Efface la sélection du fichier
+      }
+    },
     async sendEmail() {
         try {
             const formData = new FormData();
@@ -109,6 +141,16 @@ methods: {
         } catch (error) {
             console.error('Erreur lors de l\'envoi de l\'e-mail:', error);
         }
+    }
+},
+computed: {
+    isFormValid() {
+        return !Object.values(this.errors).includes(true) && 
+               this.form.firstName &&
+               this.form.lastName &&
+               this.form.email &&
+               this.form.subject &&
+               this.form.message;
     }
 }
 
@@ -193,18 +235,54 @@ methods: {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      & input {
+      
+      & div {
         width: 100%;
+        display: flex;
+        position: relative;
         &:nth-child(2){
           margin-left: 50px;
         }
+        & input {
+        width: 100%;
+        box-sizing: border-box;
+        height: max-content;
       }
+      &:not(.tel)::after {
+        content: '*';
+        color: red;
+        right:-8px;
+        position: absolute;
+      }
+      }
+      
     }
     .objet {
-      display: flex;
+      margin-bottom: 30px;
+      & div {
+        display: flex;
       flex-direction: column;
-      & span {
-        margin-bottom: 15px;
+      height: max-content;
+      margin-top: 6px;
+      position: relative;
+      & select {
+        margin-bottom: 0 !important;
+      }
+      &::after {
+        content: '*';
+        color: red;
+        right:-8px;
+        position: absolute;
+      }
+      }
+    }
+    .textAreaBox {
+      position: relative;
+      &::after {
+        content: '*';
+        color: red;
+        right:-8px;
+        position: absolute;
       }
     }
     input:not([type="file"]):not([type="checkbox"]), textarea, select {
@@ -215,7 +293,12 @@ methods: {
   font-size: $font-size-texte;
   margin-bottom: 30px; 
 }
-
+textarea {
+  height: 148px;
+  width: 100%;
+  resize: none;
+  box-sizing: border-box;
+}
     select {
       & option:not(:first-child) {
         text-transform: capitalize;
@@ -244,6 +327,11 @@ methods: {
       margin-top: 30px;
       &:hover {
         cursor: pointer;
+      }
+      &:disabled {
+        background: rgba(46, 46, 46, 0.18);
+        color: rgba(46, 46, 46, 0.48);
+        cursor: not-allowed;
       }
     }
     .privacy-policy {

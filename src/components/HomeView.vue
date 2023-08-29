@@ -3,9 +3,11 @@
     <section class="heroBanner">
       <div class="video-background">
         <video ref="videoRef" playsinline muted loop>
-          <source src="../assets/videos/bande_demo_fokus-studio.webm" type="video/mp4">
+          <source src="../assets/videos/bande_demo_fokus-studio.webm" type="video/webm">
         </video>
+    <router-link to="/contact">
     <h1>{{ jsonData.title }}</h1>
+    </router-link>
   </div> 
   </section>
   <HomeServices />
@@ -26,7 +28,7 @@ import HomeAbout from './sections/HomeAbout.vue';
 import ContactButton from './ContactButton.vue';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-//TODO : debugger l'erreur sur la video en auto play quand on revient sur la page d'acceuil ( vu que le scroll trop bug)
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default {
@@ -86,6 +88,10 @@ export default {
     position: absolute;
     font-weight: 700;
   }
+  & a {
+    width: 617px;
+    height: 63px;
+  }
 }
 .video-background {
       display: flex;
@@ -97,7 +103,7 @@ export default {
       bottom: 0;
       left: 0;
       overflow: hidden;
-      z-index: -1;
+      z-index: 1;
       & img {
         width: 100%;
         height: 100%;
