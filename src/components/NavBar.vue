@@ -23,12 +23,11 @@
       <a href="#" ref="link3" @mouseover="hoverSocialLink" @mouseleave="leaveSocialLink"><img src="../assets/icons/youtube.svg" alt="youtube" /></a>
       <a href="#" ref="link4" @mouseover="hoverSocialLink" @mouseleave="leaveSocialLink"><img src="../assets/icons/linkedin.svg" alt="linkedin" /></a>
     </div>
-    <div class="navBar__burger" @click="toggleMenu">
-      <div></div>
-      <div></div>
-      <BurgerMenu v-if="isMenuOpen"/>
+    <div class="navBar__burger" @click="toggleMenu" v-show="isMobileView">
+      <div ref="crossTop" ></div>
+      <div ref="crossBot" ></div>
     </div>
-    
+    <BurgerMenu v-if="isMenuOpen" @close-burger="toggleMenu"/>
   </div>
 </template>
 
@@ -49,35 +48,129 @@ export default {
   data() {
     return {
       lastScrollTop: 0,
-      isMenuOpen: false
+      isMenuOpen: false,
+      isMobileView: window.innerWidth < 1250
     };
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize(); 
   },
   beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('resize', this.handleResize);
   },
   methods: {
+    handleResize() {
+    this.isMobileView = window.innerWidth < 1250;
+
+    if (!this.isMobileView && this.isMenuOpen) {
+        this.toggleMenu();  // Cela va gérer les animations et enlever le flou
+    }
+},
     toggleMenu() {
-        this.isMenuOpen = !this.isMenuOpen;
-        if (this.isMenuOpen) {
-          document.querySelector('.container').classList.add('blurEffect');
-          document.querySelector('.footer').classList.add('blurEffect');
-          document.querySelector('.navBar__links').classList.add('blurEffect');
-          document.querySelector('.navBar__reseaux').classList.add('blurEffect');
-          document.querySelector('.navBar__logo').classList.add('blurEffect');
+    this.isMenuOpen = !this.isMenuOpen;
+
+    // Liste des sélecteurs des éléments à flouter
+    const elementsToBlur = [
+        '.container',
+        '.footer',
+        '.navBar__links',
+        '.navBar__reseaux',
+        '.navBar__logo'
+    ];
+    const crossTop = this.$refs.crossTop;
+    const crossBottom = this.$refs.crossBot;
+    const crossTopTL = gsap.timeline();
+    const crossBotTL = gsap.timeline();
+
+    if (this.isMenuOpen) {
+        crossTopTL.fromTo(crossTop, {
+            y: -6,
+            backgroundColor: '#1B1B1B',
+        }, {
+            y: 0,
+            backgroundColor: 'white',
+            duration: 0.4,
+            ease: 'power1.out'
+        });
+        crossTopTL.to(crossTop, {
+            rotate: 45,
+            duration: 0.4,
+            ease: 'power1.out'
+        });
+        crossBotTL.fromTo(crossBottom, {
+            y: 0,
+            backgroundColor: '#1B1B1B',
+        }, {
+            y: 0,
+            backgroundColor: 'white',
+            duration: 0.4,
+            ease: 'power1.out'
+        });
+        crossBotTL.to(crossBottom, {
+            rotate: -45,
+            duration: 0.4,
+            ease: 'power1.out'
+        });
+
+        elementsToBlur.forEach(selector => {
+            gsap.to(selector, {
+                duration: 0.7,
+                ease: 'power1.out',
+                filter: 'blur(5px) grayscale(100%)',
+                pointerEvents: 'none'
+            });
+        });
+        if (document.querySelector('video')) {
           document.querySelector('video').pause();
-        } else {
-          document.querySelector('.container').classList.remove('blurEffect');
-          document.querySelector('.footer').classList.remove('blurEffect');
-          document.querySelector('.navBar__links').classList.remove('blurEffect');
-          document.querySelector('.navBar__reseaux').classList.remove('blurEffect');
-          document.querySelector('.navBar__logo').classList.remove('blurEffect');
-          document.querySelector('video').play();
         }
         
-    },
+    } else {
+        crossTopTL.fromTo(crossTop, {
+            rotate: 45,
+            backgroundColor: 'white',
+        }, {
+            rotate: 0,
+            backgroundColor: '#1B1B1B',
+            duration: 0.4,
+            ease: 'power1.out'
+        });
+        crossTopTL.to(crossTop, {
+            y: -6,
+            duration: 0.4,
+            ease: 'power1.out'
+        });
+
+        crossBotTL.fromTo(crossBottom, {
+            rotate: -45,
+            backgroundColor: 'white',
+        }, {
+            rotate: 0,
+            backgroundColor: '#1B1B1B',
+            duration: 0.4,
+            ease: 'power1.out'
+        });
+        crossBotTL.to(crossBottom, {
+            y: 6,
+            duration: 0.4,
+            ease: 'power1.out'
+        });
+
+        elementsToBlur.forEach(selector => {
+            gsap.to(selector, {
+                duration: 0.7,
+                ease: 'power1.out',
+                filter: 'blur(0) grayscale(0%)',
+                pointerEvents: 'auto'
+            });
+        });
+        if (document.querySelector('video')) {
+          document.querySelector('video').play();
+        }
+    }
+},
     hoverSocialLink(event) {
       gsap.to(event.currentTarget, {
         y: -5,
@@ -165,20 +258,30 @@ export default {
     height: 67px;
   }
 
-  @media screen and (max-width: 1250px) {
+
   .navBar__burger {
     display: flex;
     position: relative;
     flex-direction: column;
+    justify-content: center;
     align-items: flex-end;
+    height: 50px;
+    width: 50px;
     & div:not(.burgerMenu) {
       height: 3px;
       width: 30px;
       background: $secondary-color;
+      transform-origin: 50% 50%;
+      z-index: 99;
+      position: absolute;
+      will-change: transform;
       &:nth-child(1) {
-        margin-bottom: 5px;
+        transform: translateY(-6px);
+      }
+      &:nth-child(2) {
+        transform: translateY(6px);
       }
     }
   }
-}
+
 </style>

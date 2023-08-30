@@ -221,7 +221,6 @@ lensTL
     duration: 1,
     ease: "elastic",
     scale: 0.95,
-    repeat: 1,
      transformOrigin: "50% 50%",
     yoyo: true
   })
@@ -229,22 +228,9 @@ lensTL
     duration: 0.5,
     rotation: 45,
     ease: "power3.inOut",
-    repeat: 1,
      transformOrigin: "50% 50%",
     yoyo: true
   }, "-=0.3"); // Commencez en même temps que la première animation
-
-// Animation pour g.mid
-lensTL
-  .to(svgElement.querySelector('g.mid'), {
-    duration: 0.4,
-    ease: "power3.inOut",
-    fill: chroma(primaryColor).brighten(0.2).hex(),
-    scale: 0.95,
-    repeat: 1,
-     transformOrigin: "50% 50%",
-    yoyo: true
-  }, "<");
 
 // Animation pour g.inner
 lensTL
@@ -253,7 +239,6 @@ lensTL
     ease: "power3.inOut",
     fill: chroma(primaryColor).brighten(0.3).hex(),
     scale: 1.2,
-    repeat: 1,
      transformOrigin: "50% 50%",
     yoyo: true,
     strokeWidth: 25
@@ -265,8 +250,7 @@ lensTL
     duration: 1,
     ease: "power3.inOut",
     opacity: 0.8,
-    scale: 1.05,
-    repeat: 1,
+    scale: 1.25,
      transformOrigin: "50% 50%",
     yoyo: true
   }, "<");
@@ -370,6 +354,7 @@ this.$store.commit('setHomeAboutReady', true);
           background-color: $secondary-color;
           margin-bottom: 30px;
           transform: translateX(-100%);
+          will-change: transform;
         }
       }
 
@@ -424,7 +409,11 @@ this.$store.commit('setHomeAboutReady', true);
         font-size: 24px;
         font-weight: 700;
       }
-
+      @-moz-document url-prefix() {
+    h4 {
+        font-weight: 500;
+    }
+}
 
       .tournage__box svg {
   width: auto;

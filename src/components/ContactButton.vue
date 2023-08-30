@@ -61,6 +61,7 @@
         position: relative;
         width: 20px;
         height: 20px;
+        will-change: transform;
     }
     .cornerRight {
         transform: rotate(180deg);

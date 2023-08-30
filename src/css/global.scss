@@ -66,10 +66,7 @@ input[type="text"]:focus {
 .navBar__burger {
     display: none;
 }
-.blurEffect {
-    filter: blur(5px) grayscale(100%);
-    pointer-events: none;
-}
+
 @media screen and (max-width: 1250px) {
     .navBar {
         padding: 10px 3% !important;
