@@ -255,8 +255,6 @@ lensTL
     yoyo: true
   }, "<");
 
-
-
 this.$store.commit('setHomeAboutReady', true);
     },
 }
