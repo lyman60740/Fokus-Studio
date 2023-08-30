@@ -54,7 +54,7 @@ export default {
     enterAnimation() {
     gsap.fromTo(this.$refs.burgermenu, {scale: 0}, {
       scale: 1,
-      duration: 0.8,
+      duration: 1.5,
       ease: 'power3.out',
     });
 }

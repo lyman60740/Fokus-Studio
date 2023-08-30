@@ -266,13 +266,13 @@ export default {
     justify-content: center;
     align-items: flex-end;
     height: 50px;
-    width: 50px;
+    width: 40px;
+    z-index: 99;
     & div:not(.burgerMenu) {
       height: 3px;
       width: 30px;
       background: $secondary-color;
-      transform-origin: 50% 50%;
-      z-index: 99;
+      transform-origin: 50% 50%;     
       position: absolute;
       will-change: transform;
       &:nth-child(1) {
