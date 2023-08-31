@@ -12,15 +12,17 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  /* eslint-disable no-unused-vars */
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
-      return { el: to.hash }
+      return { selector: to.hash }
     } else if (savedPosition) {
       return savedPosition;
     } else {
       return { x: 0, y: 0 }
     }
   }
+
 });
 
 

@@ -75,6 +75,9 @@
   
   export default {
     name: 'ContactView',
+    mounted() {
+      this.topScroll();
+    },
     data() {
     return {
         form: {
@@ -141,7 +144,13 @@ methods: {
         } catch (error) {
             console.error('Erreur lors de l\'envoi de l\'e-mail:', error);
         }
-    }
+    },
+    topScroll() {
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }
+      , 100);
+},
 },
 computed: {
     isFormValid() {
@@ -164,7 +173,6 @@ computed: {
 
   section {
     margin-top: calc(91px + 90px);
-    height: 70vh;
     padding: 0 10%;
     box-sizing: border-box;
     align-items: flex-start;
@@ -183,7 +191,7 @@ computed: {
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
-      height: 100%;
+      height: 70vh;
       width: 35%;
       border-radius: 8px;
       color: $primary-color;

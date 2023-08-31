@@ -116,6 +116,7 @@
     const traits = document.querySelectorAll('.preProd__trait');
     const rectangle = document.querySelectorAll('.postProd__rectangle');
     const boxRectangle = document.querySelector('.postProd__box');
+    const blocProcess = document.querySelector('.aboutHome__blocProcess');
 
     elements.forEach(element => {
       this.$store.dispatch('animateElement', element);
@@ -143,9 +144,9 @@
     repeatDelay: 1,
     delay: 0.5,
     scrollTrigger: {
-    trigger: traits[0],
-    start: 'top center', // Ajustez ce déclencheur selon vos besoins
-    toggleActions: 'play none none reverse',
+    trigger: blocProcess,
+    start: 'top bottom', // Ajustez ce déclencheur selon vos besoins
+    toggleActions: 'play pause play pause',
   },
 });
 
@@ -154,9 +155,9 @@ const combinedTL = gsap.timeline({
     repeatDelay: 2,
     yoyo: true, // Pour faire jouer l'animation en avant puis en arrière
     scrollTrigger: {
-        trigger: traits[0],
+        trigger: blocProcess,
         start: 'top center',
-        toggleActions: 'play none none reverse',
+        toggleActions: 'play pause play pause',
     }
 });
 
@@ -219,7 +220,7 @@ const lensTL = gsap.timeline({
 lensTL
   .to(svgElement.querySelector('g.outer'), {
     duration: 1,
-    ease: "elastic",
+    ease: "power3.inOut",
     scale: 0.95,
      transformOrigin: "50% 50%",
     yoyo: true

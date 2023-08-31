@@ -47,6 +47,13 @@ export default {
   mounted() {
     this.setupScrollTrigger();
     window.scrollTo(0, 0);
+
+    if (this.$route.hash) {
+      const element = document.querySelector(this.$route.hash);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
   },
   methods: {
     setupScrollTrigger() {

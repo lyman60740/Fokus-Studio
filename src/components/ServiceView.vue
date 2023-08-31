@@ -67,9 +67,6 @@ import { computed, watch, ref } from 'vue';
 
 export default {
     name: 'ServiceView',
-    mounted() {
-      this.topScroll();
-    },
     setup() {
       const route = useRoute();
   const service = ref(null); // Déplacez la déclaration de service ici
@@ -104,12 +101,6 @@ export default {
         };
     },
     methods: {
-     topScroll() {
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-      }
-      , 100);
-},
     },
 };
 </script>
@@ -151,7 +142,8 @@ export default {
     box-sizing: border-box;
     & img {
       border-radius: 8px;
-      width: 40vw;
+      width: 700px;
+      height: 300px;
     }
   }
   .second {

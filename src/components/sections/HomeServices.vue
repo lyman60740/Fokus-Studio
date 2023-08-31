@@ -47,6 +47,7 @@ import jsonData from '../../data/services.json';
       jsonData,
       duration: 0.5,
       hoverDelay: null,
+      cacheFinished: false,
     };
     },
     computed: {
@@ -58,7 +59,6 @@ mounted() {
     // Sélectionnez tous les éléments que vous voulez animer
     gsap.registerPlugin(ScrollTrigger);
     const caches = document.querySelectorAll('.servicesBloc__item__cache');
-
     caches.forEach((roulette, index) => {
 
         gsap.to(roulette, {
@@ -70,6 +70,9 @@ mounted() {
                     duration: 3,
                     ease: "power3.out",
                     y: '-100%',
+                    onComplete: () => {
+                      this.cacheFinished = true;
+                    }
                 }),
                 toggleActions: 'play none none none',
             }
@@ -99,6 +102,8 @@ mounted() {
     },
     
     hoverPreview(e) {
+    if (!this.cacheFinished) return;
+
     clearTimeout(this.hoverDelay);
     const currentTarget = e.currentTarget;
 
@@ -151,8 +156,7 @@ leavePreview(e) {
     if (videoElement) {
         videoElement.pause();
     }
-}
-,
+},
   
   }
 }
