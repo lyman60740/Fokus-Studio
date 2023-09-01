@@ -16,8 +16,7 @@
                 "title": "L'interview",
                 "description": [
                     "Présentez un collaborateur lors d'une interview courte et dynamique."
-                ],
-                "image": "fa fa-video-camera"
+                ]
             }
         },
         {
@@ -28,15 +27,13 @@
                 "description": [
                     "Faites sentir à vos futurs clients l'ambiance et l'atmosphère de votre agence.",
                     "C'est aussi le moment de presenter votre équipe."
-                ],
-                "image": "fa fa-video-camera"
+                ]
             },
             "secondBloc": {
                 "title": "Bien immobilier",
                 "description": [
                     "Permettez à vos futurs clients de se faire une idée plus clair du bien immobilier, du niveau de ses proportions et de sa spatialisation."
-                ],
-                "image": "fa fa-video-camera"
+                ]
             }
         },
         {
@@ -46,15 +43,13 @@
                 "title": "Votre marque",
                 "description": [
                     "Mettons en avant votre marque dans un spot publicitaire dynamique et créatif."
-                ],
-                "image": "fa fa-video-camera"
+                ]
             },
             "secondBloc": {
                 "title": "Reportage",
                 "description": [
                     "Nous suivons un sportif sur plusieurs heures ou jours, et nous deconvrons les moment qui composent son parcours."
-                ],
-                "image": "fa fa-video-camera"
+                ]
             }
         },
         {
@@ -65,16 +60,14 @@
                 "description": [
                     "Faites sentir à vos futurs clients l'ambiance et l'atmosphère de votre restaurant.",
                     "C'est aussi le moment de présenter votre équipe."
-                ],
-                "image": "fa fa-video-camera"
+                ]
             },
             "secondBloc": {
                 "title": "Le produit",
                 "description": [
                     "envie de mettre en avant votre marque / produit ?",
                     "Faisons des gros plans sur les ingrédients !"
-                ],
-                "image": "fa fa-video-camera"
+                ]
             }
         }
     ]

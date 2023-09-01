@@ -2,7 +2,10 @@
   <div class="container" v-if="service">
     <h1>Vidéos {{ service.title }}</h1>
     <section class="bloc first">
-      <img :src="images[service.id][0]" alt="">
+      <div 
+        class="background-image" 
+        :style="{ 'background-image': `url(${images[service.id][0]})` }">
+      </div>
       <div class="content">
         <h2>{{ service.firstBloc.title }}</h2>
         <p
@@ -16,7 +19,10 @@
       
     </section>
     <section class="bloc second">
-      <img :src="images[service.id][1]" alt="">
+      <div 
+        class="background-image" 
+        :style="{ 'background-image': `url(${images[service.id][1]})` }">
+      </div>
       <div class="content">
         <h2>{{ service.secondBloc.title }}</h2>
         <p
@@ -101,6 +107,9 @@ export default {
         };
     },
     methods: {
+      topScroll() {
+        window.scrollTo(0, 0);
+      }
     },
 };
 </script>
@@ -140,12 +149,15 @@ export default {
     justify-content: space-between;
     padding: 0 10%;
     box-sizing: border-box;
-    & img {
+    
+  }
+  .background-image {
       border-radius: 8px;
       width: 700px;
       height: 300px;
+      background-size: cover;
+      background-repeat: no-repeat;
     }
-  }
   .second {
     flex-direction: row-reverse !important;
   }

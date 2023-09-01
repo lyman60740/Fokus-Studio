@@ -233,6 +233,14 @@ lensTL
     yoyo: true
   }, "-=0.3"); // Commencez en même temps que la première animation
 
+  lensTL.to(svgElement.querySelector('g.mid'), {
+    duration: 0.5,
+    rotation: -45,
+    ease: "power3.inOut",
+     transformOrigin: "50% 50%",
+    yoyo: true
+  }, "-=0.3"); // Commencez en même temps que la première animation
+
 // Animation pour g.inner
 lensTL
   .to(svgElement.querySelector('g.inner'), {

@@ -162,8 +162,6 @@ leavePreview(e) {
 }
   </script>
 
-  
-  
   <style lang="scss" scoped>
   @import '../../css/variables.scss';
   @import '../../css/global.scss';
@@ -185,6 +183,7 @@ leavePreview(e) {
         overflow: hidden;
         display: flex;
         align-items: center;
+        
         justify-content: center;
         filter: brightness(1);
         &__cache {

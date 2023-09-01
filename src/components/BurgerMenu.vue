@@ -75,7 +75,7 @@ export default {
     height: 400px;
     width: 300px;
     top: 18px;
-    right: 22px;
+    right: 14px;
     border-radius: 8px;
     color: $primary-color;
     box-sizing: border-box;

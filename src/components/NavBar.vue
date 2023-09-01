@@ -7,13 +7,13 @@
     </router-link>
     <div class="navBar__links">
       
-      <router-link :to="{ name: 'HomeView', hash: '#services' }">
+      <router-link :to="{ name: 'HomeView', hash: '#services' }" @click="anchorLocal" v-show="!isMobileView">
         Nos services
       </router-link>
       <router-link to="/contact">
         <ContactButton />
       </router-link>
-      <router-link :to="{ name: 'HomeView', hash: '#agence' }">
+      <router-link :to="{ name: 'HomeView', hash: '#agence' }" v-show="!isMobileView">
         L'Agence
       </router-link>
     </div>
@@ -68,7 +68,17 @@ export default {
     if (!this.isMobileView && this.isMenuOpen) {
         this.toggleMenu();  // Cela va gérer les animations et enlever le flou
     }
+    
 },
+anchorLocal() {
+      if (this.$route.hash) {
+        const hash = this.$route.hash;
+        const target = document.querySelector(hash);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    },
     toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
 
