@@ -68,6 +68,10 @@ input[type="text"]:focus {
 }
 
 @media screen and (max-width: 1250px) {
+    section {
+        padding: 0 3%;
+        box-sizing: border-box;
+    }
     .navBar {
         padding: 10px 3% !important;
     }

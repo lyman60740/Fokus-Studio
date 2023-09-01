@@ -182,8 +182,7 @@ leavePreview(e) {
         cursor: pointer;
         overflow: hidden;
         display: flex;
-        align-items: center;
-        
+        align-items: center;   
         justify-content: center;
         filter: brightness(1);
         &__cache {
@@ -237,6 +236,18 @@ leavePreview(e) {
         }
     }
   }
-
+@media screen and (max-width: 800px) {
+  .servicesBloc__item__title {
+    & text {
+      font-size: $font-size-explainText-mobile !important;
+    }
+    & h3 {
+      font-size: $font-size-explainText-mobile !important;
+    }
+  }
+  .servicesBloc {
+    width: 100% !important;
+  }
+}
   </style>
   
