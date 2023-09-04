@@ -1,17 +1,14 @@
 <template>
     <div class="burgerMenu" ref="burgermenu">
         <div class="burgerMenu__nav">
-        <router-link @click="closeMenu" :to="{ name: 'HomeView', hash: '#home' } ">
-        Accueil
-        </router-link>   
-        <router-link @click="closeMenu" :to="{ name: 'HomeView', hash: '#services' }">
+          <button @click="handleServicesClick" v-show="!isMobileView">
         Nos services
-        </router-link>
-      <router-link @click="closeMenu" :to="{ name: 'HomeView', hash: '#agence' }">
+      </button>
+      <button @click="handleAgenceClick" v-show="!isMobileView">
         L'Agence
-      </router-link>
-      <router-link @click="closeMenu" to="/contact">
-            Contactez-nous
+      </button>
+      <router-link to="/contact">
+        Contactez-nous
       </router-link>
         </div>
         <div class="burgerMenu__reseaux">
@@ -47,17 +44,65 @@ export default {
   mounted() {
   this.enterAnimation();
 },
+beforeUnmount() {
+  this.leaveAnimation();
+  console.log('leave');
+},
   methods: {
+    handleServicesClick() {
+      this.closeMenu();
+    if (this.$route.name === 'HomeView') {
+      const element = document.querySelector('#services');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      this.$router.push({ name: 'HomeView', hash: '#services' });
+    }
+  },
+  handleAgenceClick() {
+    this.closeMenu();
+    if (this.$route.name === 'HomeView') {
+      const element = document.querySelector('#agence');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      this.$router.push({ name: 'HomeView', hash: '#agence' });
+    }
+  },
     closeMenu() {
         this.$emit('close-burger');
     },
     enterAnimation() {
     gsap.fromTo(this.$refs.burgermenu, {scale: 0}, {
       scale: 1,
-      duration: 1.5,
+      duration: 1,
       ease: 'power3.out',
     });
-}
+},
+leaveAnimation() {
+  gsap.fromTo(this.$refs.burgermenu, {scale: 1}, {
+    scale: 0,
+    duration: 1,
+    ease: 'power3.out',
+    onComplete: () => {
+      this.$emit('animation-finished');
+    }
+  });
+},
+scrollToSection(hash) {
+    this.closeMenu();
+
+    if (this.$route.name === 'HomeView') {
+      const element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      this.$router.push({ name: 'HomeView', hash: hash });
+    }
+  }
   }
 };
 </script>
@@ -80,7 +125,7 @@ export default {
     color: $primary-color;
     box-sizing: border-box;
     padding: 70px 30px 30px 30px;
-    transform-origin: top right;
+    transform-origin: 90% 5%;
     &__nav {
         display: flex;
         flex-direction: column;
@@ -92,6 +137,16 @@ export default {
             color: $primary-color;
         }
         & a:not(:last-child) {
+            margin-bottom: 20px;
+        }
+        & button {
+            font-size: 26px;
+            font-weight: 700;
+            text-decoration: none;
+            color: $primary-color;
+            width: max-content;
+        }
+        & button:not(:last-child) {
             margin-bottom: 20px;
         }
     }

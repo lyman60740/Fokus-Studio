@@ -1,21 +1,20 @@
 <template>
-  <div class="navBar" ref="navbar">
+  <div class="navBar">
     <router-link to="/">
     <div class="navBar__logo">
       <img src="../assets/logo/logo_complet_noir.svg" alt="logo" class="logo_complet_noir" />
     </div>
     </router-link>
     <div class="navBar__links">
-      
-      <router-link :to="{ name: 'HomeView', hash: '#services' }" @click="anchorLocal" v-show="!isMobileView">
+      <button @click="handleServicesClick" v-show="!isMobileView">
         Nos services
-      </router-link>
+      </button>
       <router-link to="/contact">
         <ContactButton />
       </router-link>
-      <router-link :to="{ name: 'HomeView', hash: '#agence' }" v-show="!isMobileView">
+      <button @click="handleAgenceClick" v-show="!isMobileView">
         L'Agence
-      </router-link>
+      </button>
     </div>
     <div class="navBar__reseaux">
       <a href="#" ref="link1" @mouseover="hoverSocialLink" @mouseleave="leaveSocialLink"><img src="../assets/icons/facebook.svg" alt="facebook" /></a>
@@ -27,7 +26,9 @@
       <div ref="crossTop" ></div>
       <div ref="crossBot" ></div>
     </div>
-    <BurgerMenu v-if="isMenuOpen" @close-burger="toggleMenu"/>
+    
+    <BurgerMenu v-if="isMenuOpen" @animation-finished="handleAnimationFinished" ref="burgerMenuComponent" />
+  
   </div>
 </template>
 
@@ -62,6 +63,31 @@ export default {
     window.removeEventListener('resize', this.handleResize);
   },
   methods: {
+    handleAnimationFinished() {
+      
+      this.isMenuOpen = false;
+    
+  },
+    handleServicesClick() {
+    if (this.$route.name === 'HomeView') {
+      const element = document.querySelector('#services');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      this.$router.push({ name: 'HomeView', hash: '#services' });
+    }
+  },
+  handleAgenceClick() {
+    if (this.$route.name === 'HomeView') {
+      const element = document.querySelector('#agence');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      this.$router.push({ name: 'HomeView', hash: '#agence' });
+    }
+  },
     handleResize() {
     this.isMobileView = window.innerWidth < 1250;
 
@@ -70,26 +96,10 @@ export default {
     }
     
 },
-anchorLocal() {
-      if (this.$route.hash) {
-        const hash = this.$route.hash;
-        const target = document.querySelector(hash);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    },
-    toggleMenu() {
+toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
 
-    // Liste des sélecteurs des éléments à flouter
-    const elementsToBlur = [
-        '.container',
-        '.footer',
-        '.navBar__links',
-        '.navBar__reseaux',
-        '.navBar__logo'
-    ];
+    const elementsToBlur = document.querySelectorAll('.container, .footer, .navBar__links, .navBar__reseaux, .navBar__logo');
     const crossTop = this.$refs.crossTop;
     const crossBottom = this.$refs.crossBot;
     const crossTopTL = gsap.timeline();
@@ -104,12 +114,13 @@ anchorLocal() {
             backgroundColor: 'white',
             duration: 0.4,
             ease: 'power1.out'
-        });
-        crossTopTL.to(crossTop, {
+        })
+        .to(crossTop, {
             rotate: 45,
             duration: 0.4,
             ease: 'power1.out'
         });
+
         crossBotTL.fromTo(crossBottom, {
             y: 0,
             backgroundColor: '#1B1B1B',
@@ -118,26 +129,29 @@ anchorLocal() {
             backgroundColor: 'white',
             duration: 0.4,
             ease: 'power1.out'
-        });
-        crossBotTL.to(crossBottom, {
+        })
+        .to(crossBottom, {
             rotate: -45,
             duration: 0.4,
             ease: 'power1.out'
         });
 
-        elementsToBlur.forEach(selector => {
-            gsap.to(selector, {
+        
+            crossTopTL.to(elementsToBlur, {
                 duration: 0.7,
                 ease: 'power1.out',
                 filter: 'blur(5px) grayscale(100%)',
                 pointerEvents: 'none'
-            });
-        });
+            }, 0);  // Start at the beginning of the timeline
+       
+
         if (document.querySelector('video')) {
-          document.querySelector('video').pause();
+            document.querySelector('video').pause();
         }
         
     } else {
+      this.isMenuOpen = true;
+      this.$refs.burgerMenuComponent.leaveAnimation();
         crossTopTL.fromTo(crossTop, {
             rotate: 45,
             backgroundColor: 'white',
@@ -146,8 +160,8 @@ anchorLocal() {
             backgroundColor: '#1B1B1B',
             duration: 0.4,
             ease: 'power1.out'
-        });
-        crossTopTL.to(crossTop, {
+        })
+        .to(crossTop, {
             y: -6,
             duration: 0.4,
             ease: 'power1.out'
@@ -161,23 +175,22 @@ anchorLocal() {
             backgroundColor: '#1B1B1B',
             duration: 0.4,
             ease: 'power1.out'
-        });
-        crossBotTL.to(crossBottom, {
+        })
+        .to(crossBottom, {
             y: 6,
             duration: 0.4,
             ease: 'power1.out'
         });
 
-        elementsToBlur.forEach(selector => {
-            gsap.to(selector, {
+        crossTopTL.to(elementsToBlur, {
                 duration: 0.7,
                 ease: 'power1.out',
                 filter: 'blur(0) grayscale(0%)',
                 pointerEvents: 'auto'
-            });
-        });
+            }, 0);
+
         if (document.querySelector('video')) {
-          document.querySelector('video').play();
+            document.querySelector('video').play();
         }
     }
 },
@@ -244,7 +257,13 @@ anchorLocal() {
     & a {
       font-weight: bold;
     }
+    & button {
+      font-weight: bold;
+    }
     & a:not(:last-child) {
+      margin-right: 5vw;
+    }
+    & button:not(:last-child) {
       margin-right: 5vw;
     }
     

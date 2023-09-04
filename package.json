@@ -11,6 +11,7 @@
     "chroma-js": "^2.4.2",
     "core-js": "^3.8.3",
     "gsap": "^3.12.2",
+    "loadash": "^1.0.0",
     "vue": "^3.2.13",
     "vue-meta": "^3.0.0-alpha.2",
     "vue-router": "^4.2.4",

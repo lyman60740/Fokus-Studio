@@ -48,13 +48,15 @@ export default {
     this.setupScrollTrigger();
     window.scrollTo(0, 0);
 
-    if (this.$route.hash) {
-      const element = document.querySelector(this.$route.hash);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+    this.$nextTick(() => {
+      if (this.$route.hash) {
+        const element = document.querySelector(this.$route.hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
       }
-    }
-  },
+    });
+},
   methods: {
     setupScrollTrigger() {
       const videoElement = this.$refs.videoRef;

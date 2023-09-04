@@ -197,5 +197,22 @@ export default {
       }
     }
   }
+
+  @media screen and (max-width: 1600px) {
+    .bloc {
+      align-items: flex-start !important;
+      flex-direction: column !important;
+      & .content {
+        max-width: none !important;
+      }
+    }
+  }
+  @media screen and (max-width: 800px) {
+    .background-image{
+      width: 100%;
+      height: 300px;
+      background-position: center;
+    }
+  }
   </style>
   

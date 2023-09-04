@@ -76,11 +76,9 @@ watch: {
     checkAllComponentsReady() {
     if (this.$store.state.homeServicesReady && this.$store.state.homeAboutReady) {
       this.isLoading = false;
-      console.log('All components are ready');
     }
   },
   enterAnimation(el, done) {
-    console.log('enter');
     gsap.fromTo(el, 
       { opacity: 0 }, 
       { 
@@ -92,7 +90,6 @@ watch: {
     );
   },
   leaveAnimation(el, done) {
-    console.log('leave');
     gsap.fromTo(el, 
       { opacity: 1 }, 
       { 

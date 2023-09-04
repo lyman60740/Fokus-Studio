@@ -68,12 +68,18 @@ input[type="text"]:focus {
 }
 
 @media screen and (max-width: 1250px) {
-    section {
+    section:not(.aboutHome) {
         padding: 0 3%;
         box-sizing: border-box;
     }
     .navBar {
         padding: 10px 3% !important;
+        &__logo {
+            width: max-content !important;
+        }
+    }
+    .navBar__links a:not(:last-child) {
+        margin-right: 0 !important;
     }
     .servicesBloc {
         width: 94% !important;
@@ -86,7 +92,58 @@ input[type="text"]:focus {
         width: 48px;
         cursor: pointer;
     }
-    .aboutHome {
-        padding: 0 3% !important;
+    h1, h2 {
+        font-size: $font-size-titleSection-mobile !important;
+    }
+    .heroBanner a {
+        width: 430px !important;
+    }
+    .contact__left {
+        max-width: none !important;
+        width: 100% !important;
+    } 
+    .contact__right {
+        display: none !important;
+    } 
+}
+@media screen and (max-width: 800px) {
+    .aboutHome__boxContent__bloc {
+        & img {
+            display: none;
+        }
+        &__large {
+            max-width: 100% !important;
+        }
+    }
+}
+@media screen and (max-width: 1600px) {
+    .aboutHome__blocProcess {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 0 !important;
+        &__part:not(:last-child) {
+            margin-bottom: 230px;   
+        }
+        
+    }
+    .tournage .aboutHome__blocProcess__blocAnim {
+        transform: translateY(-10%) !important;
+        scale: 0.7 !important;
+    }
+    .preProd .aboutHome__blocProcess__blocAnim, .tournage .aboutHome__blocProcess__blocAnim {
+        margin: 0 90px 40px 90px !important;
+    }
+    .postProd .aboutHome__blocProcess__blocAnim {
+        margin: 0 30px 40px 30px !important;
+    }
+    .otherServices__bloc {
+        flex-direction: column;
+        align-items: center;
+        & a {
+            max-width: 400px;
+            &:not(:last-child) {
+                margin-bottom: 30px;
+            }
+        }
     }
 }
