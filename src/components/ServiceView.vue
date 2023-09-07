@@ -2,12 +2,13 @@
   <div class="container" v-if="service">
     <h1>Vidéos {{ service.title }}</h1>
     <section class="bloc first">
+      <h2 v-show="isMobileView">{{ service.firstBloc.title }}</h2>
       <div 
         class="background-image" 
         :style="{ 'background-image': `url(${images[service.id][0]})` }">
       </div>
       <div class="content">
-        <h2>{{ service.firstBloc.title }}</h2>
+        <h2 v-show="!isMobileView">{{ service.firstBloc.title }}</h2>
         <p
           v-for="item in service.firstBloc.description"
           :key="item"
@@ -19,12 +20,13 @@
       
     </section>
     <section class="bloc second">
+      <h2 v-show="isMobileView">{{ service.secondBloc.title }}</h2>
       <div 
         class="background-image" 
         :style="{ 'background-image': `url(${images[service.id][1]})` }">
       </div>
       <div class="content">
-        <h2>{{ service.secondBloc.title }}</h2>
+        <h2 v-show="!isMobileView">{{ service.secondBloc.title }}</h2>
         <p
           v-for="item in service.secondBloc.description"
           :key="item"
@@ -70,6 +72,7 @@ import sportivesImage1 from '@/assets/images/sportives_1.png';
 import sportivesImage2 from '@/assets/images/sportives_2.png';
 import { useRoute } from 'vue-router';
 import { computed, watch, ref } from 'vue';
+import { onMounted, onBeforeUnmount } from 'vue';
 
 export default {
     name: 'ServiceView',
@@ -86,10 +89,28 @@ export default {
       return jsonData.services.filter(item => item.id !== route.params.serviceId);
     });
 
+    const isTabletView = ref(window.innerWidth < 1250);
+  const isMobileView = ref(window.innerWidth < 800);
+    const handleResize = () => {
+    isTabletView.value = window.innerWidth < 1250;
+    isMobileView.value = window.innerWidth < 800;
+  };
+  onMounted(() => {
+    window.scrollTo(0, 0);
+    window.addEventListener('resize', handleResize);
+    handleResize();
+  });
+
+  onBeforeUnmount(() => {
+    window.removeEventListener('resize', handleResize);
+  });
     return {
       route,
-    service, // Retournez service depuis setup
-    filteredServices
+    service, 
+    filteredServices,
+    handleResize,
+    isTabletView,
+    isMobileView
     };
   },
     components: { 
@@ -103,12 +124,20 @@ export default {
       culinaires: [culinairesImage1, culinairesImage2],
       immobilieres: [immobilieresImage1, immobilieresImage2],
       sportives: [sportivesImage1, sportivesImage2]
-    }
+    },
         };
     },
+    
+  beforeUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  },
     methods: {
+     
       topScroll() {
-        window.scrollTo(0, 0);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+        }, 100);
+        
       }
     },
 };
@@ -198,21 +227,45 @@ export default {
     }
   }
 
-  @media screen and (max-width: 1600px) {
+  @media screen and (max-width: 1000px) {
     .bloc {
-      align-items: flex-start !important;
+      align-items: center !important;
       flex-direction: column !important;
       & .content {
         max-width: none !important;
+        width: 700px;
       }
+    }
+    .background-image {
+      margin-right: 0 !important;
+    }
+  }
+  @media screen and (max-width: 1600px) {
+    .background-image {
+      margin-right: 50px;
+      height: 400px;
     }
   }
   @media screen and (max-width: 800px) {
+    .background-image {
+      margin-right: 0 !important;
+    }
     .background-image{
       width: 100%;
       height: 300px;
-      background-position: center;
+      background-position: 50% 10%;
+      margin-bottom: 20px;
     }
+     h3 {
+    font-size: $font-size-subTitle-mobile !important;
+}
+.otherServices__bloc a {
+  width: 100%;
+}
+.content {
+        
+        width: inherit !important;
+      }
   }
   </style>
   

@@ -29,6 +29,11 @@
 
 
 <script>
+//TODO : ajouter un flou sur les scroll d'ancre
+//TODO : faire le backend pour le formulaire
+//TODO : essayer d'ameliorer le score lighthouse
+
+
 import NavBar from './components/NavBar.vue'
 import './css/global.scss'
 import './css/variables.scss'

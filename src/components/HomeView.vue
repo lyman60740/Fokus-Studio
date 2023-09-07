@@ -8,7 +8,11 @@
     <router-link to="/contact">
     <h1>{{ jsonData.title }}</h1>
     </router-link>
+    
   </div> 
+  <button>
+      <a :href="jsonData.bandeDemoLink" target="_blank" >Voir notre bande démo</a>
+    </button>
   </section>
   <HomeServices />
   <HomeClients />
@@ -84,6 +88,7 @@ export default {
   @import '../css/variables.scss';
 
 .heroBanner {
+  position: relative;
   & video {
     width: 100%;
     height: 100vh;
@@ -96,11 +101,25 @@ export default {
     color: $primary-color;
     position: absolute;
     font-weight: 700;
+    text-align: center;
   }
   & a {
     width: 617px;
     height: 63px;
   }
+  & button {
+      position: absolute;
+      bottom: -10px;
+      z-index: 2;
+      & a {
+        color: $primary-color;
+        background: $secondary-color;
+        font-size: $font-size-texte;
+        font-weight: 700;
+        padding: 26px 22px;
+        border-radius: 4px;
+      }
+    }
 }
 .video-background {
       display: flex;
@@ -128,5 +147,6 @@ export default {
       height: 100%;
       object-fit: cover;
     }
+    
   </style>
   

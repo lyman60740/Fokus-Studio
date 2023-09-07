@@ -51,11 +51,19 @@
 
           <div class="fileBloc">
             <span>Ajouter une pièce jointe ( 20MB max )</span>
-            <input type="file" accept="image/*,application/pdf" v-on:change="form.attachment" @change="checkFileSize" placeholder="Pièce jointe">
+            <input type="file" accept="image/*,application/pdf" v-on:change="handleFileChange" @change="checkFileSize" placeholder="Pièce jointe">
           </div>
           
           <button type="submit" :disabled="!isFormValid" >Envoyer</button>
       </form>
+      <div  class="confirmationMessage">
+        <img src="../assets/icons/cross.svg" alt="">
+        <p >Votre demande a bien été envoyé.</p>
+        <p >Notre équipe prendra contact avec vous dans les plus brefs délais.</p>	
+        <span>Merci pour votre confiance !</span>
+        <img src="../assets/logo/logo_complet_noir.svg" alt="">
+        <i>Pensez à surveiller vos spams.</i>
+      </div>
     </div>
     <div class="contact__right bloc">
       <div class="contact__right__txt">
@@ -80,6 +88,7 @@
     },
     data() {
     return {
+      emailSent: null,
         form: {
             firstName: '',
             lastName: '',
@@ -115,6 +124,10 @@ methods: {
         inputFile.value = ''; // Efface la sélection du fichier
       }
     },
+    handleFileChange(event) {
+    this.form.attachment = event.target.files[0];
+    this.checkFileSize(event);
+},
     async sendEmail() {
         try {
             const formData = new FormData();
@@ -122,13 +135,12 @@ methods: {
                 formData.append(key, this.form[key]);
             }
 
-            const response = await fetch('YOUR_BACKEND_ENDPOINT', {
+            const response = await fetch('http://localhost:3000/send-email', {
                 method: 'POST',
                 body: formData
             });
 
             if (response.ok) {
-                alert('E-mail envoyé avec succès !');
                 this.form = {
                     firstName: '',
                     lastName: '',
@@ -138,6 +150,10 @@ methods: {
                     message: '',
                     attachment: null
                 };
+                this.emailSent = true;
+                setTimeout(() => {
+                this.emailSent = false;
+            }, 3000);
             } else {
                 alert('Erreur lors de l\'envoi de l\'e-mail.');
             }
@@ -221,6 +237,11 @@ computed: {
     .contact__left {
       width: 55%;
       max-width: 800px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       & h1 {
       font-size: $font-size-titleSection;
       font-weight: 700;
@@ -238,6 +259,7 @@ computed: {
     form {
       display: flex;
       flex-direction: column;
+      width: 100%;
     }
     .name, .mailPhone {
       display: flex;
@@ -348,6 +370,44 @@ textarea {
       margin-right: 25px;
       cursor: pointer;
     }
+    & a {
+      text-decoration: underline;
+    }
+    }
+    .confirmationMessage {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 50px;
+      box-sizing: border-box;
+      text-align: center;
+      align-items: center;
+      height: 50vh;
+      min-height: 500px;
+      width: 500px;
+      background: $primary-color;
+      border: 1px $secondary-color solid;
+      border-radius: 8px;
+      & img {
+        height: 100px;
+      }
+      & p {
+        font-size: $font-size-explainText;
+        font-weight: 500;
+        margin-bottom: 50px !important;
+        color: $secondary-color;
+        
+      }
+      & span:not(:last-child) {
+          font-size: $font-size-texte;
+          font-weight: 600;
+          margin-bottom: 30px;
+        }
+        & i {
+          position: absolute;
+          bottom: 20px;
+        }
     }
     
   </style>

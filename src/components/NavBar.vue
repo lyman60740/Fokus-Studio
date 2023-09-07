@@ -1,18 +1,18 @@
 <template>
-  <div class="navBar">
+  <div class="navBar" ref="navbar">
     <router-link to="/">
     <div class="navBar__logo">
       <img src="../assets/logo/logo_complet_noir.svg" alt="logo" class="logo_complet_noir" />
     </div>
     </router-link>
     <div class="navBar__links">
-      <button @click="handleServicesClick" v-show="!isMobileView">
+      <button @click="handleServicesClick" v-show="!isTabletView">
         Nos services
       </button>
-      <router-link to="/contact">
+      <router-link to="/contact" v-show="!isMobileView">
         <ContactButton />
       </router-link>
-      <button @click="handleAgenceClick" v-show="!isMobileView">
+      <button @click="handleAgenceClick" v-show="!isTabletView">
         L'Agence
       </button>
     </div>
@@ -22,12 +22,12 @@
       <a href="#" ref="link3" @mouseover="hoverSocialLink" @mouseleave="leaveSocialLink"><img src="../assets/icons/youtube.svg" alt="youtube" /></a>
       <a href="#" ref="link4" @mouseover="hoverSocialLink" @mouseleave="leaveSocialLink"><img src="../assets/icons/linkedin.svg" alt="linkedin" /></a>
     </div>
-    <div class="navBar__burger" @click="toggleMenu" v-show="isMobileView">
+    <div class="navBar__burger" @click="toggleMenu" v-show="isTabletView">
       <div ref="crossTop" ></div>
       <div ref="crossBot" ></div>
     </div>
     
-    <BurgerMenu v-if="isMenuOpen" @animation-finished="handleAnimationFinished" ref="burgerMenuComponent" />
+    <BurgerMenu v-if="isMenuOpen" @animation-finished="handleAnimationFinished" ref="burgerMenuComponent" @menu-item-clicked="toggleMenu" />
   
   </div>
 </template>
@@ -50,7 +50,8 @@ export default {
     return {
       lastScrollTop: 0,
       isMenuOpen: false,
-      isMobileView: window.innerWidth < 1250
+      isTabletView: window.innerWidth < 1250,
+      isMobileView: window.innerWidth < 800,
     };
   },
   mounted() {
@@ -89,9 +90,10 @@ export default {
     }
   },
     handleResize() {
-    this.isMobileView = window.innerWidth < 1250;
+    this.isTabletView = window.innerWidth < 1250;
+    this.isMobileView = window.innerWidth < 800;
 
-    if (!this.isMobileView && this.isMenuOpen) {
+    if (!this.isTabletView && this.isMenuOpen) {
         this.toggleMenu();  // Cela va gérer les animations et enlever le flou
     }
     

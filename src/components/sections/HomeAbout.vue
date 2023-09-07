@@ -55,8 +55,8 @@
                 <circle stroke="#202123" stroke-miterlimit="10" cx="90" cy="90" r="18"/>
                   </g>
                   <g class="lens-flare">
-                <circle fill="#FFFFFF" cx="108.6" cy="66.2" r="19.9"/>
-                <circle fill="#FFFFFF" cx="73.9" cy="112.5" r="10.9"/>
+                <circle fill="#FFFFFF" cx="108.6" cy="66.2" r="10.9" stroke="black" stroke-width="1" />
+                <circle fill="#FFFFFF" cx="73.9" cy="112.5" r="4.9" stroke="black" stroke-width="1" />
                   </g>
                 </svg>
              
@@ -97,7 +97,6 @@
   import jsonData from '../../data/home.json';
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  import chroma from 'chroma-js';
 
 
   export default {
@@ -152,7 +151,7 @@
 
 const combinedTL = gsap.timeline({
     repeat: -1,
-    repeatDelay: 2,
+    repeatDelay: 1,
     yoyo: true, // Pour faire jouer l'animation en avant puis en arrière
     scrollTrigger: {
         trigger: blocProcess,
@@ -199,16 +198,13 @@ combinedTL.to(boxRectangle, {
     backgroundColor: "#3a3a3a",
 }, `-=110%`);
 
-// Sélectionnez l'élément SVG
 const svgElement = document.querySelector('.tournage__box');
-
-// Couleurs (remplacez par vos valeurs)
-const primaryColor = "#202123"; // Remplacez par la valeur de votre $primary-color
+const secondaryColor = "#202123";
 
 const lensTL = gsap.timeline({
     repeat: -1,
     repeatDelay: 1,
-    yoyo: true, // Pour faire jouer l'animation en avant puis en arrière
+    yoyo: true,
     scrollTrigger: {
         trigger: traits[0],
         start: 'top center',
@@ -246,7 +242,7 @@ lensTL
   .to(svgElement.querySelector('g.inner'), {
     duration: 0.8,
     ease: "power3.inOut",
-    fill: chroma(primaryColor).brighten(0.3).hex(),
+    fill: secondaryColor,
     scale: 1.2,
      transformOrigin: "50% 50%",
     yoyo: true,
@@ -260,6 +256,7 @@ lensTL
     ease: "power3.inOut",
     opacity: 0.8,
     scale: 1.25,
+    rotate: 25,
      transformOrigin: "50% 50%",
     yoyo: true
   }, "<");
@@ -434,15 +431,15 @@ this.$store.commit('setHomeAboutReady', true);
     transform-origin: 50% 50%;
   }
   g.mid {
-    fill: darken($primary-color, 25%);
+    fill: $primary-color;
     transition: fill .5s ease-in;
     path {
-      stroke: darken($primary-color, 25%);
+      stroke: $primary-color;
     }
   }
   g.inner {
     stroke-width: 20;
-    fill: darken($primary-color, 25%);
+    fill: $primary-color;
     transition: stroke-width .5s ease-in, fill .5s ease-in;
   }
   g.lens-flare {

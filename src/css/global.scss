@@ -115,6 +115,9 @@ input[type="text"]:focus {
             max-width: 100% !important;
         }
     }
+    .clientsHome h2 {
+        text-align: center;
+    }
 }
 @media screen and (max-width: 1600px) {
     .aboutHome__blocProcess {
