@@ -4,37 +4,36 @@
 
     <div class="blocCarousel" v-if="windowWidth <= 1250">
       <div class="carousel">
-      <div
-        class="carousel__logoBox__item"
-        v-for="(item, index) in jsonData.clients.list"
-        :key="index"
-        :class="item"
-      >
-        <img :src="getImage(item)" :alt="item" />
+        <div
+          class="carousel__logoBox__item"
+          v-for="(item, index) in jsonData.clients.list"
+          :key="index"
+          :class="item"
+        >
+          <img :src="getImage(item)" :alt="item" />
+        </div>
+      </div>
+      <div class="carousel">
+        <div
+          class="carousel__logoBox__item"
+          v-for="(item, index) in jsonData.clients.list"
+          :key="index"
+          :class="item"
+        >
+          <img :src="getImage(item)" :alt="item" />
+        </div>
+      </div>
+      <div class="carousel">
+        <div
+          class="carousel__logoBox__item"
+          v-for="(item, index) in jsonData.clients.list"
+          :key="index"
+          :class="item"
+        >
+          <img :src="getImage(item)" :alt="item" />
+        </div>
       </div>
     </div>
-    <div class="carousel">
-      <div
-        class="carousel__logoBox__item"
-        v-for="(item, index) in jsonData.clients.list"
-        :key="index"
-        :class="item"
-      >
-        <img :src="getImage(item)" :alt="item" />
-      </div>
-    </div>
-    <div class="carousel">
-      <div
-        class="carousel__logoBox__item"
-        v-for="(item, index) in jsonData.clients.list"
-        :key="index"
-        :class="item"
-      >
-        <img :src="getImage(item)" :alt="item" />
-      </div>
-    </div>
-    </div>
-   
 
     <div class="clientsHome__logoBox" v-else>
       <div
@@ -46,20 +45,17 @@
         <img :src="getImage(item)" :alt="item" />
       </div>
     </div>
-
-   
   </section>
 </template>
 
 <script>
-// import { gsap } from 'gsap';
 import microsoftLogo from "@/assets/logo/microsoft.svg";
 import demoozLogo from "@/assets/logo/demooz.svg";
 import axaLogo from "@/assets/logo/axa.svg";
 import nestleLogo from "@/assets/logo/nestle.svg";
 import warner_brosLogo from "@/assets/logo/warner_bros.svg";
 import jsonData from "../../data/home.json";
-import { debounce } from 'lodash';
+import { debounce } from "lodash";
 
 export default {
   name: "HomeClients",
@@ -67,7 +63,7 @@ export default {
     return {
       jsonData,
       windowWidth: window.innerWidth,
-      debouncedHandleResize: null
+      debouncedHandleResize: null,
     };
   },
   methods: {
@@ -94,40 +90,40 @@ export default {
   },
   mounted() {
     this.debouncedHandleResize = debounce(this.handleResize, 200);
-  window.addEventListener('resize', this.debouncedHandleResize);
-  this.handleResize(); // pour initialiser windowWidth dès le montage
+    window.addEventListener("resize", this.debouncedHandleResize);
+    this.handleResize(); // pour initialiser windowWidth dès le montage
 
+    const carousels = document.querySelectorAll(".carousel");
 
-  const carousels = document.querySelectorAll('.carousel');
+    carousels.forEach((carousel) => {
+      const items = carousel.querySelectorAll(".carousel__logoBox__item");
+      const itemWidth = items[0].offsetWidth; // Supposons que tous les items aient la même largeur
+      const listWidth = itemWidth * items.length; // Largeur de la liste originale
 
-  carousels.forEach((carousel) => {
-    const items = carousel.querySelectorAll('.carousel__logoBox__item');
-    const itemWidth = items[0].offsetWidth; // Supposons que tous les items aient la même largeur
-    const listWidth = itemWidth * items.length; // Largeur de la liste originale
-    
-    carousel.addEventListener('transitionend', () => {
-      // Lorsque la première liste sort de l'écran
-      if (parseInt(carousel.style.transform.split('(')[1]) <= -listWidth) {
-        // Supprimer la première liste
-        for (let i = 0; i < items.length; i++) {
-          carousel.removeChild(items[i]);
+      carousel.addEventListener("transitionend", () => {
+        // Lorsque la première liste sort de l'écran
+        if (parseInt(carousel.style.transform.split("(")[1]) <= -listWidth) {
+          // Supprimer la première liste
+          for (let i = 0; i < items.length; i++) {
+            carousel.removeChild(items[i]);
+          }
+
+          // Ajouter une copie de la liste à la fin
+          items.forEach((item) => {
+            const clone = item.cloneNode(true);
+            carousel.append(clone);
+          });
+
+          // Réinitialiser la position
+          carousel.style.transform = `translateX(${
+            parseInt(carousel.style.transform.split("(")[1]) + listWidth
+          }px)`;
         }
-
-        // Ajouter une copie de la liste à la fin
-        items.forEach(item => {
-          const clone = item.cloneNode(true);
-          carousel.append(clone);
-        });
-
-        // Réinitialiser la position
-        carousel.style.transform = `translateX(${parseInt(carousel.style.transform.split('(')[1]) + listWidth}px)`;
-      }
+      });
     });
-  });
-  
-},
-beforeMount() {
-  window.removeEventListener('resize', this.debouncedHandleResize);
+  },
+  beforeMount() {
+    window.removeEventListener("resize", this.debouncedHandleResize);
   },
   computed: {
     isMobile() {
@@ -171,7 +167,7 @@ beforeMount() {
 
 .carousel {
   display: flex;
-  & img{
+  & img {
     height: 50px;
   }
 }
@@ -179,27 +175,24 @@ beforeMount() {
   .blocCarousel {
     display: flex;
     animation: scroll 20s linear infinite;
-    
   }
-  .carousel{
+  .carousel {
     width: 1100px !important;
     justify-content: space-between !important;
-    
+
     white-space: nowrap;
     margin-right: 100px;
   }
   .carousel__logoBox__item {
-  display: inline-block;
-  /* Autres styles pour les items */
-}
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
+    display: inline-block;
   }
-  100% {
-    transform: translateX(-33.33%);
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-33.33%);
+    }
   }
-}
-
 }
 </style>

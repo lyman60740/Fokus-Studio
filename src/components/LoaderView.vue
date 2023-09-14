@@ -4,7 +4,6 @@
             <img src="../assets/logo/logo_favicon_blanc.svg" alt=""  >
             <img src="../assets/logo/logo_titrage_blanc.svg" alt="">
         </div>
-        <!-- <span>Un instant</span> -->
     </div>
   </template>
   

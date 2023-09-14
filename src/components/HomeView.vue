@@ -3,40 +3,43 @@
     <section class="heroBanner">
       <div class="video-background">
         <video ref="videoRef" playsinline muted loop>
-          <source src="../assets/videos/bande_demo_fokus-studio.webm" type="video/webm">
+          <source
+            src="../assets/videos/bande_demo_fokus-studio.webm"
+            type="video/webm"
+          />
         </video>
+        <router-link to="/contact">
+          <h1>{{ jsonData.title }}</h1>
+        </router-link>
+      </div>
+      <button>
+        <a :href="jsonData.bandeDemoLink" target="_blank"
+          >Voir notre bande démo</a
+        >
+      </button>
+    </section>
+    <HomeServices />
+    <HomeClients />
+    <HomeAbout />
     <router-link to="/contact">
-    <h1>{{ jsonData.title }}</h1>
+      <ContactButton />
     </router-link>
-    
-  </div> 
-  <button>
-      <a :href="jsonData.bandeDemoLink" target="_blank" >Voir notre bande démo</a>
-    </button>
-  </section>
-  <HomeServices />
-  <HomeClients />
-  <HomeAbout />
-  <router-link to="/contact">
-        <ContactButton />
-  </router-link>
-  
   </div>
 </template>
 
 <script>
-import jsonData from '../data/home.json';
-import HomeServices from './sections/HomeServices.vue';
-import HomeClients from './sections/HomeClients.vue';
-import HomeAbout from './sections/HomeAbout.vue';
-import ContactButton from './ContactButton.vue';
+import jsonData from "../data/home.json";
+import HomeServices from "./sections/HomeServices.vue";
+import HomeClients from "./sections/HomeClients.vue";
+import HomeAbout from "./sections/HomeAbout.vue";
+import ContactButton from "./ContactButton.vue";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default {
-  name: 'HomeView',
+  name: "HomeView",
   components: {
     HomeServices,
     HomeClients,
@@ -60,32 +63,33 @@ export default {
         }
       }
     });
-},
+  },
   methods: {
     setupScrollTrigger() {
       const videoElement = this.$refs.videoRef;
 
       ScrollTrigger.create({
         trigger: videoElement,
-        start: "top bottom", 
-        end: "bottom top", 
+        start: "top bottom",
+        end: "bottom top",
         onEnter: () => {
-          videoElement.play().catch(error => console.error("Play error:", error));
+          videoElement
+            .play()
+            .catch((error) => console.error("Play error:", error));
         },
         onLeave: () => {
           videoElement.pause();
         },
         onEnterBack: () => videoElement.play(),
-        onLeaveBack: () => videoElement.pause()
+        onLeaveBack: () => videoElement.pause(),
       });
-    }
-  }
+    },
+  },
 };
-
 </script>
 
-  <style lang="scss" scoped>
-  @import '../css/variables.scss';
+<style lang="scss" scoped>
+@import "../css/variables.scss";
 
 .heroBanner {
   position: relative;
@@ -108,45 +112,43 @@ export default {
     height: 63px;
   }
   & button {
-      position: absolute;
-      bottom: -10px;
-      z-index: 2;
-      & a {
-        color: $primary-color;
-        background: $secondary-color;
-        font-size: $font-size-texte;
-        font-weight: 700;
-        padding: 26px 22px;
-        border-radius: 4px;
-      }
+    position: absolute;
+    bottom: -10px;
+    z-index: 2;
+    & a {
+      color: $primary-color;
+      background: $secondary-color;
+      font-size: $font-size-texte;
+      font-weight: 700;
+      padding: 26px 22px;
+      border-radius: 4px;
     }
+  }
 }
 .video-background {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      overflow: hidden;
-      z-index: 1;
-      & img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 1;
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
 
-    .video-background video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    
-  </style>
-  
+.video-background video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>
