@@ -58,14 +58,25 @@
           </li>
         </ul>
         <ul class="footer__content__right__nav">
-          <li><a href="">Nos services</a></li>
-          <li><a href="">L'agence</a></li>
-          <li><a href="">Contactez-nous</a></li>
+          <li>
+            <button @click="handleServicesClick">
+              Nos services
+            </button>
+          </li>
+          <li><button @click="handleAgenceClick">
+              L'Agence
+            </button>
+          </li>
+          <li>
+            <router-link to="/contact" v-show="!isMobileView">
+              Contactez-nous
+            </router-link>
+          </li>
         </ul>
       </div>
     </div>
     <div class="footer__reseauxMobile">
-      <a href="">
+      <a href="" target="_blank">
         <svg
           width="11"
           height="21"
@@ -79,7 +90,7 @@
           />
         </svg>
       </a>
-      <a href="">
+      <a href="" target="_blank">
         <svg
           width="21"
           height="21"
@@ -93,7 +104,7 @@
           />
         </svg>
       </a>
-      <a href="">
+      <a href="" target="_blank">
         <svg
           width="29"
           height="21"
@@ -107,7 +118,7 @@
           />
         </svg>
       </a>
-      <a href="">
+      <a href="" target="_blank">
         <svg
           width="22"
           height="21"
@@ -128,7 +139,7 @@
         <a href=""> <u>Politique de confidentialité</u> </a></span
       >
       <span
-        >Design et Développement par <a href=""> <u>Lyman Abid</u> </a></span
+        >Design et Développement par <a href="https://www.linkedin.com/in/lyman-abid/" target="_blank"> <u>Lyman Abid</u> </a></span
       >
     </div>
   </footer>
@@ -145,6 +156,28 @@ export default {
       jsonData,
     };
   },
+  methods : {
+    handleServicesClick() {
+      if (this.$route.name === "HomeView") {
+        const element = document.querySelector("#services");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      } else {
+        this.$router.push({ name: "HomeView", hash: "#services" });
+      }
+    },
+    handleAgenceClick() {
+      if (this.$route.name === "HomeView") {
+        const element = document.querySelector("#agence");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      } else {
+        this.$router.push({ name: "HomeView", hash: "#agence" });
+      }
+    },
+  }
 };
 </script>
 

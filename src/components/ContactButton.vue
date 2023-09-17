@@ -3,7 +3,7 @@
     <div class="cornerLeft">
       <img src="../assets/icons/large_corner.svg" alt="" ref="angleLeft" />
     </div>
-    <button class="contactButton">Contactez nous</button>
+    <button class="contactButton">Contactez-nous</button>
     <div class="cornerRight">
       <img src="../assets/icons/large_corner.svg" alt="" ref="angleRight" />
     </div>
