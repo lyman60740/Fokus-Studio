@@ -22,31 +22,34 @@
     </div>
     <div class="navBar__reseaux">
       <a
-        href="#"
-        ref="link1"
+        href="https://www.facebook.com/fokusstudiofr"
         @mouseover="hoverSocialLink"
         @mouseleave="leaveSocialLink"
+        target="_blank"
         ><img src="../assets/icons/facebook.svg" alt="facebook"
       /></a>
       <a
-        href="#"
-        ref="link2"
+        href="https://www.instagram.com/fokus_studio_fr/"
+        ref="instagram"
         @mouseover="hoverSocialLink"
         @mouseleave="leaveSocialLink"
+        target="_blank"
         ><img src="../assets/icons/instagram.svg" alt="instagram"
       /></a>
-      <a
-        href="#"
-        ref="link3"
+      <!-- <a
+        href="https://www.youtube.com/@NewtripPictures"
+        ref="youtube"
         @mouseover="hoverSocialLink"
         @mouseleave="leaveSocialLink"
+        target="_blank"
         ><img src="../assets/icons/youtube.svg" alt="youtube"
-      /></a>
+      /></a> -->
       <a
-        href="#"
-        ref="link4"
+        href="https://www.linkedin.com/company/fokus-studio-fr/about/"
+        ref="linkedin"
         @mouseover="hoverSocialLink"
         @mouseleave="leaveSocialLink"
+        target="_blank"
         ><img src="../assets/icons/linkedin.svg" alt="linkedin"
       /></a>
     </div>
@@ -131,7 +134,7 @@ export default {
       this.isMenuOpen = !this.isMenuOpen;
 
       const elementsToBlur = document.querySelectorAll(
-        ".container, .footer, .navBar__links, .navBar__reseaux, .navBar__logo"
+        ".container, .footer, .navBar__links, .navBar__reseaux, .navBar__logo, .contact-form"
       );
       const crossTop = this.$refs.crossTop;
       const crossBottom = this.$refs.crossBot;

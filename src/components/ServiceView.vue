@@ -243,14 +243,28 @@ p {
   .background-image {
     margin-right: 0 !important;
   }
+  h2 {
+    margin-top: 20px;
+  }
+  
 }
 @media screen and (max-width: 1600px) {
   .background-image {
     margin-right: 50px;
     height: 400px;
   }
+  .otherServices__bloc__item__title {
+    width: 400px;
+  }
 }
 @media screen and (max-width: 800px) {
+  h1 {
+    font-size: 26px !important;
+    text-align: center;
+  }
+  h2 {
+    font-size: 26px !important;
+  }
   .background-image {
     margin-right: 0 !important;
   }
@@ -268,6 +282,14 @@ p {
   }
   .content {
     width: inherit !important;
+  }
+  .otherServices__bloc__item__title {
+    width: 100%;
+    & svg {
+      width: 20px !important;
+      height: 20px !important;
+      margin-left: 20px !important;
+    }
   }
 }
 </style>

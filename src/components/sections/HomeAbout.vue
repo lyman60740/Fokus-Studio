@@ -206,7 +206,6 @@ export default {
       scrollTrigger: {
         trigger: blocProcess,
         start: "top center",
-        end: "bottom center",
         toggleActions: "play pause play pause",
       },
     });
@@ -218,7 +217,8 @@ export default {
       scrollTrigger: {
         trigger: blocProcess,
         start: "top center",
-        end: "bottom center",
+        // markers: true,
+       
         toggleActions: "play pause play pause",
       },
     });
@@ -425,6 +425,7 @@ h3 {
   justify-content: space-between;
   width: 100%;
   margin-top: 200px;
+  height: max-content;
   &__part {
     width: 400px;
   }
@@ -548,5 +549,14 @@ h4 {
     opacity: 0.6;
     transition: opacity 1s ease-in;
   }
+}
+
+@media screen and (max-width: 800px) {
+  .aboutHome__blocProcess__part {
+    width: 100% !important;
+}
+.preProd .aboutHome__blocProcess__blocAnim, .tournage .aboutHome__blocProcess__blocAnim {
+    margin: 0 70px 40px 70px !important;
+}
 }
 </style>

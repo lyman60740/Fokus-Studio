@@ -13,10 +13,11 @@
     </div>
     <div class="burgerMenu__reseaux">
       <a
-        href="#"
-        ref="link1"
+        href="https://www.facebook.com/fokusstudiofr"
+        ref="facebook"
         @mouseover="hoverSocialLink"
         @mouseleave="leaveSocialLink"
+        target="_blank"
       >
         <svg
           width="11"
@@ -32,10 +33,11 @@
         </svg>
       </a>
       <a
-        href="#"
-        ref="link2"
+        href="https://www.instagram.com/fokus_studio_fr/"
+        ref="instagram"
         @mouseover="hoverSocialLink"
         @mouseleave="leaveSocialLink"
+        target="_blank"
       >
         <svg
           width="21"
@@ -50,11 +52,12 @@
           />
         </svg>
       </a>
-      <a
-        href="#"
-        ref="link3"
+      <!-- <a
+        href="https://www.youtube.com/@NewtripPictures"
+        ref="youtube"
         @mouseover="hoverSocialLink"
         @mouseleave="leaveSocialLink"
+        target="_blank"
       >
         <svg
           width="29"
@@ -68,12 +71,13 @@
             fill="#FFFFFF"
           />
         </svg>
-      </a>
+      </a> -->
       <a
-        href="#"
-        ref="link4"
+        href="https://www.linkedin.com/company/fokus-studio-fr/about/"
+        ref="linkedin"
         @mouseover="hoverSocialLink"
         @mouseleave="leaveSocialLink"
+        target="_blank"
       >
         <svg
           width="22"

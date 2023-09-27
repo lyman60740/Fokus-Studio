@@ -39,19 +39,25 @@
         <ul class="footer__content__right__reseaux">
           <li>Suivez-nous</li>
           <li>
-            <a href="#" target="_blank">
+            <a href="https://www.instagram.com/fokus_studio_fr/" target="_blank">
               <span>Instagram</span>
               <img src="../assets/icons/arrow_diag.svg" alt="" />
             </a>
           </li>
           <li>
-            <a href="#" target="_blank">
+            <a href="https://www.facebook.com/fokusstudiofr" target="_blank">
               <span>Facebook</span>
               <img src="../assets/icons/arrow_diag.svg" alt="" />
             </a>
           </li>
+          <!-- <li>
+            <a href="https://www.youtube.com/@NewtripPictures" target="_blank">
+              <span>Youtube</span>
+              <img src="../assets/icons/arrow_diag.svg" alt="" />
+            </a>
+          </li> -->
           <li>
-            <a href="#" target="_blank">
+            <a href="https://www.linkedin.com/company/fokus-studio-fr/about/" target="_blank">
               <span>Linkedin</span>
               <img src="../assets/icons/arrow_diag.svg" alt="" />
             </a>
@@ -76,7 +82,7 @@
       </div>
     </div>
     <div class="footer__reseauxMobile">
-      <a href="" target="_blank">
+      <a href="www.facebook.com/fokusstudiofr" target="_blank" ref="facebook">
         <svg
           width="11"
           height="21"
@@ -90,7 +96,7 @@
           />
         </svg>
       </a>
-      <a href="" target="_blank">
+      <a href="https://www.instagram.com/fokus_studio_fr/" target="_blank" ref="instagram">
         <svg
           width="21"
           height="21"
@@ -104,7 +110,7 @@
           />
         </svg>
       </a>
-      <a href="" target="_blank">
+      <!-- <a href="https://www.youtube.com/@NewtripPictures" target="_blank" ref="youtube">
         <svg
           width="29"
           height="21"
@@ -117,8 +123,8 @@
             fill="white"
           />
         </svg>
-      </a>
-      <a href="" target="_blank">
+      </a> -->
+      <a href="www.linkedin.com/company/fokus-studio-fr" target="_blank" ref="linkedin">
         <svg
           width="22"
           height="21"
@@ -136,11 +142,14 @@
     <div class="footer__credits">
       <span
         >Fokus Studio 2023. Tous droits réservés
-        <a href=""> <u>Politique de confidentialité</u> </a></span
+        <a @click="showPolitique = true"><u>Politique de confidentialité</u></a></span
       >
       <span
         >Design et Développement par <a href="https://www.linkedin.com/in/lyman-abid/" target="_blank"> <u>Lyman Abid</u> </a></span
       >
+    </div>
+    <div v-if="showPolitique" class="modal">
+      <PolitiqueConfidentialite @close="showPolitique = false" />
     </div>
   </footer>
 </template>
@@ -148,13 +157,18 @@
 <script>
 //   import { gsap } from 'gsap';
 import jsonData from "../data/footer.json";
+import PolitiqueConfidentialite from "./PolitiqueConfidentialite.vue";
 
 export default {
   name: "FooterBloc",
   data() {
     return {
       jsonData,
+      showPolitique: false,
     };
+  },
+  components: {
+    PolitiqueConfidentialite
   },
   methods : {
     handleServicesClick() {

@@ -7,7 +7,7 @@
             "firstBloc": {
                 "title": "Votre entreprise",
                 "description": [
-                    "Présenter les valeurs et objectifs de votre entreprise au plus grand nombre.",
+                    "Présentez les valeurs et objectifs de votre entreprise au plus grand nombre.",
                     "Faites sentir à vos futurs clients l'ambiance et l'atmosphère qui règnent dans vos locaux."
                 ],
                 "image": "@/assets/images/corporate_1.png"

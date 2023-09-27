@@ -43,12 +43,13 @@
                 Choisissez une catégorie
               </option>
               <option
-                v-for="service in services"
-                :key="service.id"
-                :value="service.id"
-              >
-                Vidéos {{ service.id }}
-              </option>
+  v-for="service in services"
+  :key="service.id"
+  :value="service.id"
+>
+  {{ service.id === 'autres' ? 'Autres' : `Vidéos ${service.id}` }}
+</option>
+
             </select>
           </div>
         </div>
@@ -69,16 +70,18 @@
           <label for="acceptPrivacyPolicy"
             >Je reconnais avoir pris connaissance de la
             <a
-              href="/lien-vers-votre-politique-de-confidentialite"
-              target="_blank"
+            @click="showPolitique = true"
               >politique de confidentialité</a
             >
             et je l’accepte.</label
           >
+          <div v-if="showPolitique" class="modal">
+      <PolitiqueConfidentialite @close="showPolitique = false" />
+    </div>
         </div>
 
         <div class="fileBloc">
-          <span>Ajouter une pièce jointe ( 20MB max )</span>
+          <span>Ajouter une pièce jointe :</span>
           <input
             type="file"
             accept="image/*,application/pdf"
@@ -91,7 +94,6 @@
         <button type="submit" :disabled="!isFormValid">Envoyer</button>
       </form>
       <div v-if="emailSent" class="confirmationMessage">
-        <!--   -->
         <img
           @click="exitButton"
           class="confirmationMessage_exit"
@@ -120,14 +122,19 @@
 <script>
 import jsonData from "../data/contact.json";
 import servicesData from "../data/services.json";
+import PolitiqueConfidentialite from "./PolitiqueConfidentialite.vue";
 
 export default {
   name: "ContactView",
+  components: {
+    PolitiqueConfidentialite,
+  },
   mounted() {
     this.topScroll();
   },
   data() {
     return {
+      showPolitique: false,
       emailSent: null,
       form: {
         firstName: "",
@@ -145,12 +152,17 @@ export default {
       errors: {
         email: false,
         phone: false,
-        // ... ajoutez des erreurs pour d'autres champs si nécessaire
       },
       jsonData,
       services: servicesData.services,
     };
   },
+  created() {
+  this.services.push({
+    id: "autres",
+    // ajoutez d'autres propriétés si nécessaire
+  });
+},
   methods: {
     exitButton() {
       this.emailSent = false;
@@ -166,7 +178,7 @@ export default {
         alert(
           "Le fichier est trop volumineux Veuillez télécharger un fichier de moins de 20MB."
         );
-        inputFile.value = ""; // Efface la sélection du fichier
+        inputFile.value = ""; 
       }
     },
     handleFileChange(event) {
@@ -279,7 +291,6 @@ section {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   & h1 {
     font-size: $font-size-titleSection;

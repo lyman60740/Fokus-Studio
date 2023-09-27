@@ -273,6 +273,8 @@ leavePreview(e) {
 }
 @media screen and (max-width: 800px) {
   .servicesBloc__item__title {
+    height: 30% !important;
+    padding: 10px 15px !important;
     & text {
       font-size: $font-size-explainText-mobile !important;
     }
