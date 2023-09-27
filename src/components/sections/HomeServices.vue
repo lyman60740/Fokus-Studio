@@ -285,6 +285,7 @@ leavePreview(e) {
   .servicesBloc {
     width: 100% !important;
   }
+
 }
 @media screen and (max-width: 1250px) {
 .servicesBloc {

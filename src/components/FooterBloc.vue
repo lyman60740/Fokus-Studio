@@ -25,7 +25,7 @@
           <li>{{ jsonData.region }}</li>
           <li>
             {{ jsonData.pays }}
-            <img src="../assets/icons/france_flag.svg" alt="" />
+            <img src="../assets/icons/france_flag.svg" alt="" class="flag"/>
           </li>
           <li>
             <a :href="'mailto:' + jsonData.email"
@@ -261,6 +261,7 @@ li {
   display: flex;
   align-items: center;
 }
+
 li:not(:last-child) {
   margin-bottom: 15px;
 }
@@ -342,5 +343,8 @@ li:not(:last-child) {
       margin-right: 20px;
     }
   }
+}
+.flag {
+  margin-left: 10px;
 }
 </style>

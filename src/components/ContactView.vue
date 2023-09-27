@@ -7,13 +7,18 @@
           {{ item }}
         </p>
       </div>
-      <form @submit.prevent="sendEmail">
+      <form
+    method="POST"
+    enctype="multipart/form-data"
+    @submit.prevent="sendEmail"
+    ref="myForm"
+>
         <div class="name">
           <div>
-            <input type="text" v-model="form.firstName" placeholder="Prénom" />
+            <input type="text" v-model="form.firstName" placeholder="Prénom" name="firstName" />
           </div>
           <div>
-            <input type="text" v-model="form.lastName" placeholder="Nom" />
+            <input type="text" v-model="form.lastName" placeholder="Nom" name="lastName" />
           </div>
         </div>
         <div class="mailPhone">
@@ -23,6 +28,7 @@
               v-model="form.email"
               @input="validateField('email', 'email')"
               placeholder="Adresse mail"
+              name="email"
             />
           </div>
           <div class="tel">
@@ -31,6 +37,7 @@
               v-model="form.phone"
               @input="validateField('phone', 'phone')"
               placeholder="N° de téléphone"
+              name="phone"
             />
           </div>
         </div>
@@ -38,18 +45,18 @@
         <div class="objet">
           <span>Votre demande concerne : </span>
           <div>
-            <select v-model="form.subject">
+            <select v-model="form.subject" name="subject">
               <option value="" disabled selected>
                 Choisissez une catégorie
               </option>
               <option
-  v-for="service in services"
-  :key="service.id"
-  :value="service.id"
->
-  {{ service.id === 'autres' ? 'Autres' : `Vidéos ${service.id}` }}
-</option>
-
+    v-for="service in enhancedServices"
+    :key="service.id"
+    :value="service.id">
+    {{
+      service.id === "autres" ? "Autres" : `Vidéos ${service.id}`
+    }}
+  </option>
             </select>
           </div>
         </div>
@@ -57,6 +64,7 @@
           <textarea
             v-model="form.message"
             placeholder="Décrivez brièvement votre projet "
+            name="message"
           ></textarea>
         </div>
 
@@ -69,18 +77,15 @@
           />
           <label for="acceptPrivacyPolicy"
             >Je reconnais avoir pris connaissance de la
-            <a
-            @click="showPolitique = true"
-              >politique de confidentialité</a
-            >
+            <a @click="showPolitique = true">politique de confidentialité</a>
             et je l’accepte.</label
           >
           <div v-if="showPolitique" class="modal">
-      <PolitiqueConfidentialite @close="showPolitique = false" />
-    </div>
+            <PolitiqueConfidentialite @close="showPolitique = false" />
+          </div>
         </div>
 
-        <div class="fileBloc">
+        <!-- <div class="fileBloc">
           <span>Ajouter une pièce jointe :</span>
           <input
             type="file"
@@ -88,8 +93,9 @@
             v-on:change="handleFileChange"
             @change="checkFileSize"
             placeholder="Pièce jointe"
+            name="fileUpload"
           />
-        </div>
+        </div> -->
 
         <button type="submit" :disabled="!isFormValid">Envoyer</button>
       </form>
@@ -157,12 +163,13 @@ export default {
       services: servicesData.services,
     };
   },
-  created() {
-  this.services.push({
-    id: "autres",
-    // ajoutez d'autres propriétés si nécessaire
-  });
-},
+//   created() {
+//   if (!this.services.some(service => service.id === "autres")) {
+//     this.services.push({
+//       id: "autres",
+//     });
+//   }
+// },
   methods: {
     exitButton() {
       this.emailSent = false;
@@ -178,42 +185,37 @@ export default {
         alert(
           "Le fichier est trop volumineux Veuillez télécharger un fichier de moins de 20MB."
         );
-        inputFile.value = ""; 
+        inputFile.value = "";
       }
     },
     handleFileChange(event) {
       this.form.attachment = event.target.files[0];
       this.checkFileSize(event);
     },
-    async sendEmail() {
-      try {
-        const formData = new FormData();
-        for (const key in this.form) {
-          formData.append(key, this.form[key]);
-        }
 
-        const response = await fetch("http://localhost:3000/send-email", {
-          method: "POST",
-          body: formData,
+    sendEmail() {
+        const formData = new FormData(this.$refs.myForm);
+        
+        fetch("https://formspree.io/f/meqbpjgp", {
+            method: "POST",
+            body: formData,
+            headers: {
+                "Accept": "application/json"
+            }
+        })
+        .then(response => {
+            if (response.status === 200) {
+                this.emailSent = true;
+                this.form = {}; // Réinitialisez le formulaire si nécessaire
+            } else {
+                // Gérez l'erreur comme vous le souhaitez
+                alert("Une erreur s'est produite lors de l'envoi du formulaire.");
+            }
+        })
+        .catch(error => {
+            // Gérez également toute autre erreur réseau ici
+            console.error("There was an error!", error);
         });
-
-        if (response.ok) {
-          this.form = {
-            firstName: "",
-            lastName: "",
-            email: "",
-            phone: "",
-            subject: "",
-            message: "",
-            attachment: null,
-          };
-          this.emailSent = true;
-        } else {
-          alert("Erreur lors de l'envoi de l'e-mail.");
-        }
-      } catch (error) {
-        console.error("Erreur lors de l'envoi de l'e-mail:", error);
-      }
     },
     topScroll() {
       setTimeout(() => {
@@ -222,6 +224,9 @@ export default {
     },
   },
   computed: {
+    enhancedServices() {
+    return [...this.services, { id: 'autres' }];
+  },
     isFormValid() {
       return (
         !Object.values(this.errors).includes(true) &&
@@ -254,10 +259,10 @@ section {
   box-sizing: border-box;
 }
 .contact__right {
-  background-image: url("../assets/images/loic_profil.png");
+  background-image: url("../assets/images/loic_profil2.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: top 100% left 50%;
   height: 70vh;
   width: 35%;
   border-radius: 8px;
@@ -267,7 +272,7 @@ section {
   align-items: flex-end;
   justify-content: space-between;
   &__txt {
-    height: 57px;
+    height: 42px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -275,14 +280,14 @@ section {
   & h3 {
     color: $primary-color;
     font-weight: 700;
-    font-size: $font-size-explainText;
+    font-size: 16px;
   }
   & span {
-    font-size: $font-size-texte;
+    font-size: 14px;
   }
   & img {
-    width: 157px;
-    height: 57px;
+    width: 116px;
+    height: 42px;
   }
 }
 .contact__left {
@@ -292,6 +297,7 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   & h1 {
     font-size: $font-size-titleSection;
     font-weight: 700;
