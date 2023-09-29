@@ -2,7 +2,7 @@
   <div class="container">
     <section class="heroBanner">
       <div class="video-background">
-        <video ref="videoRef" playsinline muted loop>
+        <video disableRemotePlayback ref="videoRef" playsinline muted loop>
           <source
             src="../assets/videos/bande_demo_fokus-studio.webm"
             type="video/webm"

@@ -13,7 +13,7 @@
 
       >
         <div class="servicesBloc__item__cache"></div>
-        <video :src="getImage(item)" muted loop playsinline ref="videoRef"></video>
+        <video disableRemotePlayback :src="getImage(item)" muted loop playsinline ref="videoRef" :poster="getImage(item, 'poster')"></video>
         <div class="servicesBloc__item__title">
           <text>Vidéos</text>
           <h3>{{ item.title }}</h3>
@@ -29,6 +29,12 @@ import videoCorpo from "@/assets/videos/loop_video_corpo.mp4";
 import videoCuli from "@/assets/videos/loop_video_culinaire.mp4";
 import videoImmo from "@/assets/videos/loop_video_immo.mp4";
 import videoSport from "@/assets/videos/loop_video_sport.mp4";
+
+import posterCorpo from "@/assets/images/corporate_2.png";
+import posterCuli from "@/assets/images/culinaires_1.png";
+import posterImmo from "@/assets/images/immobilieres_2.png";
+import posterSport from "@/assets/images/sportives_1.png";
+
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(CustomEase, ScrollTrigger);
@@ -178,20 +184,21 @@ leavePreview(e) {
     leftPosition(index) {
       return (100 / this.jsonData.services.length) * index + "%";
     },
-    getImage(item) {
-      switch (item.title) {
-        case "corporate":
-          return videoCorpo;
-        case "immobilières":
-          return videoImmo;
-        case "culinaires":
-          return videoCuli;
-        case "sportives":
-          return videoSport;
-        default:
-          return null;
-      }
-    }
+    getImage(item, type = 'video') {
+  switch (item.title) {
+    case "corporate":
+      return type === 'video' ? videoCorpo : posterCorpo;
+    case "immobilières":
+      return type === 'video' ? videoImmo : posterImmo;
+    case "culinaires":
+      return type === 'video' ? videoCuli : posterCuli;
+    case "sportives":
+      return type === 'video' ? videoSport : posterSport;
+    default:
+      return null;
+  }
+}
+
   }
 };
 </script>

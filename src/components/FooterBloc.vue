@@ -82,7 +82,7 @@
       </div>
     </div>
     <div class="footer__reseauxMobile">
-      <a href="www.facebook.com/fokusstudiofr" target="_blank" ref="facebook">
+      <a href="https://www.facebook.com/fokusstudiofr" target="_blank" ref="facebook">
         <svg
           width="11"
           height="21"
@@ -124,7 +124,7 @@
           />
         </svg>
       </a> -->
-      <a href="www.linkedin.com/company/fokus-studio-fr" target="_blank" ref="linkedin">
+      <a href="https://www.linkedin.com/company/fokus-studio-fr/about/" target="_blank" ref="linkedin">
         <svg
           width="22"
           height="21"
@@ -148,10 +148,11 @@
         >Design et Développement par <a href="https://www.linkedin.com/in/lyman-abid/" target="_blank"> <u>Lyman Abid</u> </a></span
       >
     </div>
-    <div v-if="showPolitique" class="modal">
+
+  </footer>
+  <div v-if="showPolitique" class="modal">
       <PolitiqueConfidentialite @close="showPolitique = false" />
     </div>
-  </footer>
 </template>
 
 <script>
@@ -343,6 +344,13 @@ li:not(:last-child) {
       margin-right: 20px;
     }
   }
+}
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 .flag {
   margin-left: 10px;
