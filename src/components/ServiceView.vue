@@ -65,7 +65,7 @@
 <script>
 import jsonData from "../data/services.json";
 import ContactButton from "./ContactButton.vue";
-import corporateImage1 from "@/assets/images/corporate_1.png";
+import corporateImage1 from "@/assets/images/corporate_1.jpg";
 import corporateImage2 from "@/assets/images/corporate_2.png";
 import culinairesImage1 from "@/assets/images/culinaires_1.png";
 import culinairesImage2 from "@/assets/images/culinaires_2.png";
@@ -183,6 +183,7 @@ p {
   justify-content: space-between;
   padding: 0 10%;
   box-sizing: border-box;
+  max-width: 2100px;
 }
 .background-image {
   border-radius: 8px;
